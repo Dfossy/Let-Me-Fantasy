@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top 5 Rotation Picks by Position</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ===== Global Styles ===== */
+      :root {
+        --bg-dark: #121826;
+        --bg-header: #1f2a44;
+        --bg-card: #233043;
+        --bg-hover: #2a3b4d;
+        --text-light: #ffffff;
+        --text-muted: #ccc;
+        --accent-green: #00ff7f;
+        --accent-yellow: #ffd700;
+        --accent-red: #ff4500;
+        --highlight-color: #444cff;
+        --border-radius: 8px;
+        --transition-speed: 0.3s;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        color: var(--text-light);
+        margin: 0;
+        padding: 0;
+      }
+
+      /* ===== Header ===== */
+      header {
+        padding: 5px 20px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid var(--accent-blue);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        flex-wrap: wrap;
+        gap: 10px;
+        transition: all 0.3s ease;
+        height: 125px; /* adjust height */
+        background-image: url("LMF header.jpg"); /* path to your image */
+        background-size: cover; /* makes image cover the whole area */
+        background-position: bottom; /* keeps image centered */
+        background-repeat: no-repeat;
+        position: relative; /* allow absolute positioning inside */
+      }
+      .header-title {
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%, -50%);
+        color: whitesmoke;
+        font-size: 50px;
+        font-weight: bold;
+        text-shadow: 5px 00px 0px #ff6fb5;
+        pointer-events: none; /* clicks go through to logo/nav */
+      }.nav-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .nav-buttons button {
+        padding: 6px 14px;
+        border-radius: 8px;
+        border: 3px solid black;
+        background: #065084;
+        color: #ffffff;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background 0.3s ease, color 0.3s ease;
+      }
+
+      .nav-buttons button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(77, 175, 255, 0.7);
+        background: #ffffff;
+        color: #000;
+      }
+
+      #gwLabel {
+        display: block;
+        margin-top: 8px;
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--text-muted);
+      }
+      .hero-image,
+      .hero-video {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        text-shadow: 0 3px 8px #000;
+      }
+      .hero-image {
+        height: 30vh;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+      .hero-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-bottom: 2px solid var(--accent-blue);
+      }
+      .hero-video {
+        height: 55vh;
+      }
+      .hero-video video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+      }
+      .hero-video .overlay-text {
+        position: relative;
+        z-index: 1;
+        padding: 0 10px;
+      }
+
+      /* ===== Main Content ===== */
+      main {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 15px;
+      }
+
+      h2 {
+        margin-top: 40px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        font-size: 1.4rem;
+        border-bottom: 2px solid var(--bg-hover);
+        padding-bottom: 5px;
+      }
+
+      /* ===== Table Styles ===== */
+      .table-wrapper {
+        overflow-x: auto;
+        margin-bottom: 40px;
+        border-radius: var(--border-radius);
+      }
+
+      table {
+        width: 100%;
+        min-width: 600px;
+        border-collapse: collapse;
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+      }
+
+      th,
+      td {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--bg-hover);
+        text-align: left;
+        transition: background var(--transition-speed);
+      }
+
+      th {
+        background: var(--bg-header);
+        font-weight: 600;
+      }
+
+      tr:hover {
+        background: var(--bg-hover);
+      }
+
+      .fdr-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: #000;
+        font-weight: 600;
+        font-size: 0.85rem;
+      }
+
+      .highlight {
+        background: var(--highlight-color) !important;
+        color: #fff;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: center;
+          height: auto; /* allow height to shrink naturally */
+          padding: 8px 10px;
+        }
+        .logo-icon {
+          width: 70px;
+          height: 70px;
+        }
+        .nav-buttons {
+          justify-content: center;
+          overflow-x: auto; /* scrollable nav */
+          padding-bottom: 6px;
+        }
+        .nav-buttons button {
+          font-size: 12px;
+          padding: 6px 10px;
+          flex: 0 0 auto; /* prevent shrinking */
+        }
+        .hero-video,
+        .hero-image {
+          height: 35vh; /* smaller hero */
+        }
+        .fixture-card {
+          flex-direction: column;
+          text-align: center;
+          font-size: 14px;
+        }
+        table {
+          display: block;
+          overflow-x: auto; /* horizontal scroll for big tables */
+          font-size: 12px;
+        }
+      }
+
+      /* ========== Small phones (<=480px) ========== */
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 14px;
+          gap: 4px;
+          margin-top: -5px;
+        }
+        .logo-icon {
+          width: 50px;
+          height: 50px;
+        }
+        .header-title {
+          font-size: 24px; /* shrink big title */
+          top: 35%;
+        }
+        .nav-buttons button {
+          font-size: 11px;
+          padding: 5px 8px;
+        }
+        .hero-video,
+        .hero-image {
+          height: 28vh; /* smaller for phones */
+          font-size: 0.9rem;
+        }
+        .fixture-card {
+          font-size: 12px;
+          padding: 6px;
+        }
+        .team-header {
+          font-size: 11px;
+          padding: 6px;
+        }
+        .search-container input {
+          width: 95%;
+          font-size: 11px;
+        }
+        footer {
+          font-size: 9px;
+          padding: 8px;
+        }
+        .top-scorer {
+          min-width: 70px;
+          font-size: 11px;
+        }
+      }
+      #players-grid table,
+      .top-scorers-row {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--accent-blue);
+        text-shadow: 0 0 8px rgba(77, 175, 255, 0.7);
+        transition: transform 0.3s ease, text-shadow 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.08);
+        text-shadow: 0 0 15px rgba(93, 255, 208, 1),
+          0 0 30px rgba(77, 175, 255, 1);
+      }
+
+      .logo-icon {
+        width: 100px;
+        height: 100px;
+        filter: drop-shadow(0 0 10px rgba(93, 255, 208, 0.8))
+          drop-shadow(0 0 20px rgba(77, 175, 255, 0.6));
+        transition: transform 0.4s ease, filter 0.4s ease;
+      }
+
+      .logo:hover .logo-icon {
+        transform: rotate(-5deg) scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(93, 255, 208, 1))
+          drop-shadow(0 0 30px rgba(77, 175, 255, 1));
+      }
+
+      .logo-text {
+        background: #065084;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      footer {
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+        padding: 15px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        border-top: 1px solid var(--accent-blue);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 class="logo" onclick="refreshData()">
+        <img class="logo-icon" src="LMF Gold.png" alt="Let Me Fantasy Logo" />
+      </h1>
+      <h2 class="header-title">FDR</h2>
+      <div class="nav-buttons">
+        <button onclick="window.location.href='fixture.html'">Fixtures</button>
+        <button onclick="window.location.href='data.html'">
+          Players by Team
+        </button>
+        <button onclick="window.location.href='top-team.html'">Top Team</button>
+        <button onclick="window.location.href='index.html'">Dashboard</button>
+    </header>
+    <section class="hero-video">
+      <video autoplay muted loop playsinline>
+        <source src="LMF new.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </section>
+    <span id="gwLabel">Loading GW...</span>
+
+    <main id="mainContent"></main>
+    <footer>OFFSIDE LINE</footer>
+
+    <script>
+      // ===== Config & Utilities =====
+      const apiUrl =
+        "https://corsproxy.io/?https://fantasy.premierleague.com/api/bootstrap-static/";
+      const fixturesUrl =
+        "https://corsproxy.io/?https://fantasy.premierleague.com/api/fixtures/";
+      const positionMap = { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" };
+
+      function fdrColor(fdr) {
+        if (fdr <= 2) return "var(--accent-green)";
+        if (fdr === 3) return "var(--accent-yellow)";
+        return "var(--accent-red)";
+      }
+
+      // ===== Load FPL Data =====
+      async function loadTopPlayersByPosition() {
+        try {
+          const [resData, resFixtures] = await Promise.all([
+            fetch(apiUrl),
+            fetch(fixturesUrl),
+          ]);
+
+          const data = await resData.json();
+          const fixtures = await resFixtures.json();
+          const elements = data.elements;
+          const teams = data.teams;
+
+          const teamMap = {};
+          teams.forEach((t) => (teamMap[t.id] = t.name));
+
+          // Determine current Gameweek
+          const now = new Date();
+          const upcomingFixtures = fixtures.filter(
+            (f) => !f.finished && f.event && new Date(f.kickoff_time) > now
+          );
+          const currentGW = upcomingFixtures.length
+            ? upcomingFixtures[0].event
+            : 1;
+
+          document.getElementById(
+            "gwLabel"
+          ).textContent = `Current GW: ${currentGW}`;
+
+          // Group players by position
+          const playersByPosition = { GK: [], DEF: [], MID: [], FWD: [] };
+          elements
+            .filter((p) => p.minutes > 0 && p.total_points > 0)
+            .forEach((p) => {
+              const pos = positionMap[p.element_type];
+              const teamId = p.team;
+
+              const nextFixture = fixtures.find(
+                (f) =>
+                  (f.team_h === teamId || f.team_a === teamId) &&
+                  f.event === currentGW
+              );
+
+              let fdr = 3;
+              let opponent = "TBD";
+
+              if (nextFixture) {
+                if (nextFixture.team_h === teamId) {
+                  fdr = nextFixture.team_h_difficulty;
+                  opponent = teamMap[nextFixture.team_a] || "TBD";
+                } else {
+                  fdr = nextFixture.team_a_difficulty;
+                  opponent = teamMap[nextFixture.team_h] || "TBD";
+                }
+              }
+
+              const score = p.total_points / fdr;
+
+              playersByPosition[pos].push({
+                name: p.web_name,
+                position: pos,
+                team: teamMap[teamId] || "Unknown",
+                points: p.total_points,
+                fdr,
+                opponent,
+                score,
+                highlight: !!nextFixture,
+              });
+            });
+
+          // Render Tables
+          const mainContent = document.getElementById("mainContent");
+          mainContent.innerHTML = "";
+
+          Object.keys(playersByPosition).forEach((pos) => {
+            const topPlayers = playersByPosition[pos]
+              .sort((a, b) => b.score - a.score)
+              .slice(0, 5);
+
+            const h2 = document.createElement("h2");
+            h2.textContent = `${pos} - Top 5`;
+            mainContent.appendChild(h2);
+
+            const wrapper = document.createElement("div");
+            wrapper.classList.add("table-wrapper");
+
+            const table = document.createElement("table");
+            table.innerHTML = `
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Team</th>
+                  <th>Total Points</th>
+                  <th>Next Fixture</th>
+                  <th>Rotation Score</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            `;
+            const tbody = table.querySelector("tbody");
+
+            topPlayers.forEach((p) => {
+              const tr = document.createElement("tr");
+              if (p.highlight) tr.classList.add("highlight");
+              tr.innerHTML = `
+                <td>${p.name}</td>
+                <td>${p.team}</td>
+                <td>${p.points}</td>
+                <td>
+                  <span class="fdr-badge" style="background:${fdrColor(
+                    p.fdr
+                  )}">${p.opponent} (${p.fdr})</span>
+                </td>
+                <td>${p.score.toFixed(2)}</td>
+              `;
+              tbody.appendChild(tr);
+            });
+
+            wrapper.appendChild(table);
+            mainContent.appendChild(wrapper);
+          });
+        } catch (err) {
+          console.error("Failed to load FPL data:", err);
+          document.getElementById("mainContent").innerHTML =
+            "<p>Failed to load data</p>";
+        }
+      }
+
+      // ===== Initial Load & Refresh =====
+      loadTopPlayersByPosition();
+      setInterval(loadTopPlayersByPosition, 7 * 24 * 60 * 60 * 1000); // weekly refresh
+    </script>
+  </body>
+</html>

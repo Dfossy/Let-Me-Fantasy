@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FPL Player & Team Database</title>
+    <style>
+      :root {
+        --bg-dark: #121826;
+        --card-bg: #1f2937;
+        --accent-blue: #4dafff;
+        --accent-green: #5fffd0;
+        --text-light: #fff;
+        --shadow-dark: rgba(0, 0, 0, 0.4);
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        color: var(--text-light);
+        scroll-behavior: smooth;
+      }
+
+      header {
+        padding: 5px 20px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid var(--accent-blue);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        flex-wrap: wrap;
+        gap: 10px;
+        transition: all 0.3s ease;
+        height: 125px; /* adjust height */
+        background-image: url("LMF header.jpg"); /* path to your image */
+        background-size: cover; /* makes image cover the whole area */
+        background-position: bottom; /* keeps image centered */
+        background-repeat: no-repeat;
+        position: relative; /* allow absolute positioning inside */
+      }
+      .header-title {
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%, -50%);
+        color: whitesmoke;
+        font-size: 50px;
+        font-weight: bold;
+        text-shadow: 5px 00px 0px #ff6fb5;
+        pointer-events: none; /* clicks go through to logo/nav */
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--accent-blue);
+        text-shadow: 0 0 8px rgba(77, 175, 255, 0.7);
+        transition: transform 0.3s ease, text-shadow 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.08);
+        text-shadow: 0 0 15px rgba(93, 255, 208, 1),
+          0 0 30px rgba(77, 175, 255, 1);
+      }
+
+      .logo-icon {
+        width: 100px;
+        height: 100px;
+        filter: drop-shadow(0 0 10px rgba(93, 255, 208, 0.8))
+          drop-shadow(0 0 20px rgba(77, 175, 255, 0.6));
+        transition: transform 0.4s ease, filter 0.4s ease;
+      }
+
+      .logo:hover .logo-icon {
+        transform: rotate(-5deg) scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(93, 255, 208, 1))
+          drop-shadow(0 0 30px rgba(77, 175, 255, 1));
+      }
+
+      .logo-text {
+        background: #065084;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .nav-buttons button {
+        padding: 6px 14px;
+        border-radius: 8px;
+        border: 3px solid black;
+        background: #065084;
+        color: #ffffff;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background 0.3s ease, color 0.3s ease;
+      }
+
+      .nav-buttons button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(77, 175, 255, 0.7);
+        background: #ffffff;
+        color: #000;
+      }
+
+      .search-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+      }
+
+      .search-container input {
+        width: 60%;
+        max-width: 400px;
+        padding: 8px 12px;
+        border-radius: 50px;
+        border: none;
+        font-size: 14px;
+      }
+
+      .filter-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+        gap: 10px;
+      }
+
+      .filter-container button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background: var(--accent-blue);
+        color: #000;
+        font-weight: bold;
+        transition: transform 0.2s;
+      }
+
+      .filter-container button:hover {
+        transform: scale(1.05);
+      }
+
+      main {
+        padding: 10px 20px;
+      }
+
+      .team-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        margin-bottom: 16px;
+        padding: 10px;
+        box-shadow: 0 6px 15px var(--shadow-dark);
+      }
+
+      .team-header {
+        font-weight: bold;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 6px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        border-radius: 8px;
+      }
+
+      .team-stats {
+        font-size: 13px;
+        margin: 8px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .player-list {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+      }
+      .player-list.show {
+        max-height: 10000px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #fff;
+        min-width: 600px; /* stops table from squishing too much */
+      }
+
+      th,
+      td {
+        padding: 6px 10px;
+        text-align: center;
+        font-size: 12px;
+        white-space: nowrap; /* keeps columns tidy */
+      }
+
+      th {
+        font-weight: bold;
+        background: rgba(77, 175, 255, 0.3);
+        border-radius: 6px;
+      }
+
+      tr.player:nth-child(even) {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      tr.player:hover {
+        background: rgba(77, 175, 255, 0.2);
+      }
+
+      /* NEW: wrapper for scroll */
+      .table-container {
+        width: 100%;
+        overflow-x: auto; /* horizontal scroll */
+        -webkit-overflow-scrolling: touch; /* smooth on iOS */
+        margin-top: 10px;
+      }
+
+      /* Mobile tweaks */
+      @media (max-width: 768px) {
+        th,
+        td {
+          font-size: 11px;
+          padding: 5px 8px;
+        }
+      }
+      @media (max-width: 480px) {
+        th,
+        td {
+          font-size: 10px;
+          padding: 4px 6px;
+        }
+        table {
+          min-width: 500px; /* forces horizontal scroll */
+        }
+      }
+
+      footer {
+        text-align: center;
+        padding: 15px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        border-top: 1px solid var(--accent-blue);
+        font-size: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .search-container input {
+          width: 90%;
+        }
+        .team-stats {
+          flex-direction: column;
+        }
+      }
+      /* Hero */
+      .hero-image,
+      .hero-video {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        text-shadow: 0 3px 8px #000;
+      }
+      .hero-image {
+        height: 30vh;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+      .hero-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-bottom: 2px solid var(--accent-blue);
+      }
+      .hero-video {
+        height: 55vh;
+      }
+      .hero-video video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+      }
+      .hero-video .overlay-text {
+        position: relative;
+        z-index: 1;
+        padding: 0 10px;
+      }
+
+      /* Grid Layout */
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: center;
+          height: auto; /* let height adjust naturally */
+          padding: 10px;
+        }
+
+        .header-title {
+          font-size: 28px;
+          top: 60%; /* adjust title position */
+        }
+
+        .logo-icon {
+          width: 70px;
+          height: 70px;
+        }
+
+        .nav-buttons {
+          justify-content: center;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          width: 100%;
+          padding: 5px 0;
+          gap: 8px;
+        }
+      }
+      @media (max-width: 480px) {
+        .header-title {
+          font-size: 20px;
+          top: 45%; /* move up title */
+          text-shadow: 2px 2px 0px #ff6fb5;
+        }
+
+        .logo {
+          font-size: 14px;
+          gap: 4px;
+        }
+
+        .logo-icon {
+          width: 50px;
+          height: 50px;
+        }
+
+        .nav-buttons button {
+          font-size: 12px;
+          padding: 5px 10px;
+        }
+
+        .hero-video,
+        .hero-image {
+          height: 25vh; /* smaller hero */
+        }
+
+        table {
+          min-width: 450px; /* smaller for phones */
+        }
+
+        th,
+        td {
+          font-size: 10px;
+          padding: 4px;
+        }
+
+        footer {
+          font-size: 10px;
+          padding: 8px;
+        }
+      }
+      /* Wrapper for table scroll on mobile */
+      .table-container {
+        width: 100%;
+        overflow-x: auto; /* allows horizontal scroll */
+        -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+        margin-top: 10px;
+      }
+
+      /* Prevent table from squishing too much */
+      table {
+        min-width: 600px;
+        border-collapse: collapse;
+        color: #fff;
+      }
+
+      th,
+      td {
+        padding: 6px 10px;
+        text-align: center;
+        white-space: nowrap; /* prevents text from wrapping */
+        font-size: 12px;
+      }
+
+      /* Mobile tweaks */
+      @media (max-width: 480px) {
+        th,
+        td {
+          font-size: 10px;
+          padding: 4px 6px;
+        }
+        table {
+          min-width: 500px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 class="logo" onclick="refreshData()">
+        <img class="logo-icon" src="LMF Gold.png" alt="Let Me Fantasy Logo" />
+      </h1>
+      <h2 class="header-title">Player stats</h2>
+      <div class="nav-buttons">
+        <button onclick="window.location.href='fixture.html'">Fixtures</button>
+        <button onclick="window.location.href='FDR.html'">FDR</button>
+        <button onclick="window.location.href='top-team.html'">Top Team</button>
+        <button onclick="window.location.href='index.html'">Dashboard</button>
+      </div>
+    </header>
+    <section class="hero-video">
+      <video autoplay muted loop playsinline>
+        <source src="LMF new.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </section>
+
+    <div class="search-container">
+      <input type="text" id="search" placeholder="Search player..." />
+    </div>
+
+    <div class="filter-container">
+      <button data-sort="total_points">Sort by Points</button>
+      <button data-sort="goals_scored">Sort by Goals</button>
+      <button data-sort="assists">Sort by Assists</button>
+    </div>
+
+    <main id="teams-container">Loading data...</main>
+
+    <footer>OFFSIDE LINE</footer>
+
+    <script>
+      const API_BASE =
+        "https://corsproxy.io/?https://fantasy.premierleague.com/api";
+      let bootstrapData;
+      let currentSort = "total_points";
+
+      async function loadData() {
+        try {
+          bootstrapData = await fetch(API_BASE + "/bootstrap-static/").then(
+            (r) => r.json()
+          );
+          renderTeams();
+        } catch (e) {
+          document.getElementById("teams-container").innerHTML =
+            "Error loading data.";
+        }
+      }
+
+      function renderTeams() {
+        const container = document.getElementById("teams-container");
+        const query = document.getElementById("search").value.toLowerCase();
+        container.innerHTML = "";
+
+        bootstrapData.teams
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .forEach((team) => {
+            let teamPlayers = bootstrapData.elements.filter(
+              (p) =>
+                p.team === team.id && p.web_name.toLowerCase().includes(query)
+            );
+            if (!teamPlayers.length) return;
+
+            // sort players by selected criteria
+            teamPlayers.sort((a, b) => b[currentSort] - a[currentSort]);
+
+            const totalGoals = teamPlayers.reduce(
+              (sum, p) => sum + p.goals_scored,
+              0
+            );
+            const totalAssists = teamPlayers.reduce(
+              (sum, p) => sum + p.assists,
+              0
+            );
+            const totalCleanSheets = teamPlayers.reduce(
+              (sum, p) => sum + p.clean_sheets,
+              0
+            );
+            const totalPoints = teamPlayers.reduce(
+              (sum, p) => sum + p.total_points,
+              0
+            );
+
+            const card = document.createElement("div");
+            card.className = "team-card";
+
+            const header = document.createElement("div");
+            header.className = "team-header";
+            header.innerHTML = `${team.name} (${teamPlayers.length} players) <span>▼</span>`;
+            card.appendChild(header);
+
+            const statsDiv = document.createElement("div");
+            statsDiv.className = "team-stats";
+            statsDiv.innerHTML = `
+      <span>Total Points: ${totalPoints}</span>
+      <span>Goals: ${totalGoals}</span>
+      <span>Assists: ${totalAssists}</span>
+      <span>Clean Sheets: ${totalCleanSheets}</span>
+    `;
+            card.appendChild(statsDiv);
+
+            const list = document.createElement("div");
+            list.className = "player-list";
+
+            const tableContainer = document.createElement("div"); // NEW wrapper
+            tableContainer.className = "table-container";
+
+            const table = document.createElement("table");
+            table.innerHTML = `<thead>
+      <tr>
+        <th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
+        <th>%Sel</th><th>Minutes</th><th>Form</th><th>Goals</th><th>Assists</th><th>CS</th>
+      </tr></thead>
+      <tbody>${teamPlayers
+        .map(
+          (p) => `
+        <tr class="player">
+          <td>${p.web_name}</td>
+          <td>${posName(p.element_type)}</td>
+          <td>${p.total_points}</td>
+          <td>£${(p.now_cost / 10).toFixed(1)}m</td>
+          <td>${p.selected_by_percent}%</td>
+          <td>${p.minutes}</td>
+          <td>${parseFloat(p.form).toFixed(2)}</td>
+          <td>${p.goals_scored}</td>
+          <td>${p.assists}</td>
+          <td>${p.clean_sheets}</td>
+        </tr>`
+        )
+        .join("")}
+      </tbody>`;
+            tableContainer.appendChild(table);
+            list.appendChild(tableContainer);
+            card.appendChild(list);
+
+            // Toggle player list on header click
+            header.addEventListener("click", () => {
+              list.classList.toggle("show");
+            });
+
+            container.appendChild(card);
+          });
+      }
+
+      function posName(id) {
+        return { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" }[id] || "UNK";
+      }
+
+      // Search input
+      document.getElementById("search").addEventListener("input", renderTeams);
+
+      // Sorting buttons
+      document.querySelectorAll(".filter-container button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          currentSort = btn.dataset.sort;
+          renderTeams();
+        });
+      });
+
+      loadData();
+    </script>
+  </body>
+</html>

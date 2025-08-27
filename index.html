@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Let Me Fantasy</title>
+    <style>
+      :root {
+        --bg-dark: #121826;
+        --bg-dark-alt: #2a3b4d;
+        --card-bg: #233043;
+        --accent-blue: #4dafff;
+        --accent-green: #5fffd0;
+        --text-light: #ffffff;
+        --shadow-dark: rgba(0, 0, 0, 0.45);
+        --transition-speed: 0.3s;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 16px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        color: var(--text-light);
+        scroll-behavior: smooth;
+      }
+
+      header {
+        padding: 5px 20px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid var(--accent-blue);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        flex-wrap: wrap;
+        gap: 10px;
+        transition: all 0.3s ease;
+        height: 125px; /* adjust height */
+        background-image: url("LMF header.jpg"); /* path to your image */
+        background-size: cover; /* makes image cover the whole area */
+        background-position: bottom; /* keeps image centered */
+        background-repeat: no-repeat;
+        position: relative; /* allow absolute positioning inside */
+      }
+      .header-title {
+        position: absolute;
+        left: 50%;
+        top: 35%;
+        transform: translate(-50%, -50%);
+        color: whitesmoke;
+        font-size: clamp(22px, 6vw, 50px);
+        font-weight: bold;
+        text-shadow: 5px 0px 0px #ff6fb5;
+        text-align: center;
+        pointer-events: none; /* clicks go through to logo/nav */
+        white-space: nowrap;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--accent-blue);
+        text-shadow: 0 0 8px rgba(77, 175, 255, 0.7);
+        transition: transform 0.3s ease, text-shadow 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.08);
+        text-shadow: 0 0 15px rgba(93, 255, 208, 1),
+          0 0 30px rgba(77, 175, 255, 1);
+      }
+
+      .logo-icon {
+        width: 100px;
+        height: 100px;
+        filter: drop-shadow(0 0 10px rgba(93, 255, 208, 0.8))
+          drop-shadow(0 0 20px rgba(77, 175, 255, 0.6));
+        transition: transform 0.4s ease, filter 0.4s ease;
+      }
+
+      .logo:hover .logo-icon {
+        transform: rotate(-5deg) scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(93, 255, 208, 1))
+          drop-shadow(0 0 30px rgba(77, 175, 255, 1));
+      }
+
+      .logo-text {
+        background: #de38e4;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .nav-buttons button {
+        padding: 6px 14px;
+        border-radius: 8px;
+        border: 3px solid black;
+        background: #065084;
+        color: #ffffff;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background 0.3s ease, color 0.3s ease;
+      }
+
+      .nav-buttons button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(77, 175, 255, 0.7);
+        background: #ffffff;
+        color: #000;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 1s forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card {
+        padding: 12px;
+        border-radius: 12px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        box-shadow: 0 8px 20px var(--shadow-dark);
+        transition: transform var(--transition-speed) ease,
+          box-shadow var(--transition-speed) ease;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px var(--shadow-dark);
+      }
+
+      .card h2 {
+        margin: 0 0 12px;
+        text-align: center;
+      }
+
+      /* Fixtures */
+      #fixtures-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .day-group {
+        margin-bottom: 20px;
+        border-radius: 14px;
+        background: #1f2833;
+        padding: 14px 16px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(4px);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .day-group:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      }
+      .day-group-header {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--accent-green);
+        margin-bottom: 14px;
+        border-bottom: 1px solid rgba(77, 175, 255, 0.3);
+        padding-bottom: 6px;
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .day-group-header:hover {
+        background: rgba(42, 59, 77, 0.3);
+        border-radius: 6px;
+      }
+      .day-group-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.5s ease, opacity 0.4s ease;
+      }
+      .day-group-content.show {
+        max-height: 1000px;
+        opacity: 1;
+      }
+      .fixture-card {
+        padding: 12px 16px;
+        border-radius: 12px;
+        background: linear-gradient(120deg, #2c3e50, #34495e);
+        color: #fff;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.2s ease, box-shadow 0.25s ease,
+          background 0.25s ease;
+        cursor: default;
+        font-size: 15px;
+        backdrop-filter: blur(2px);
+      }
+      .fixture-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(120deg, #34495e, #3c5c72);
+      }
+      .fixture-card small {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+      }
+      .controls {
+        display: flex;
+        justify-content: center; /* centers everything horizontally */
+        align-items: center; /* centers vertically */
+        gap: 12px; /* spacing between arrows and label */
+        margin-bottom: 16px; /* optional spacing below controls */
+      }
+      .controls button {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        background-color: #210494;
+        color: #fff;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .controls button:hover {
+        transform: scale(1.1);
+      }
+      #week-label {
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--accent-green);
+        min-width: 80px;
+        text-align: center;
+      }
+
+      /* Top Scorers */
+      #top-scorers-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+      .top-scorers-row {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 0;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+      }
+      .top-scorer {
+        min-width: 100px;
+        flex: 0 0 auto;
+        padding: 10px;
+        border-radius: 12px;
+        border: 3px solid black;
+        text-align: center;
+        font-weight: bold;
+        font-size: 12px;
+        color: Black;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: #56dfcf;
+      }
+      .top-scorer:hover {
+        transform: scale(1.08);
+        box-shadow: 0 6px 18px var(--shadow-dark);
+      }
+
+      /* Team Cards */
+      .team-card {
+        background: #1f2833;
+        margin-bottom: 14px;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        backdrop-filter: blur(3px);
+      }
+      .team-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+      }
+      .team-header {
+        padding: 12px 16px;
+        background: linear-gradient(
+          90deg,
+          var(--accent-blue),
+          var(--accent-green)
+        );
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 14px 14px 0 0;
+        border: 3px solid black;
+        color: #fff;
+        cursor: pointer;
+        text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+        transition: background 0.3s ease, transform 0.2s ease,
+          box-shadow 0.3s ease;
+      }
+      .team-header:hover {
+        background: linear-gradient(90deg, #1a2a80, #3b38a0, #7a85c1, #b2b0e8);
+        box-shadow: 0 0 14px rgba(77, 175, 255, 0.7);
+        transform: scale(1.02);
+      }
+      .arrow {
+        font-size: 18px;
+        transition: transform 0.3s ease;
+      }
+      .player-list {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.6s ease, opacity 0.4s ease;
+      }
+      .player-list.show {
+        max-height: 1200px;
+        opacity: 1;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 8px;
+        color: #fff;
+        display: grid;
+        overflow-x: auto;
+      }
+      th,
+      td {
+        padding: 5px 8px;
+        text-align: center;
+        font-size: 11px;
+      }
+      th {
+        font-weight: 700;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.05);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 6px;
+      }
+      tr.player {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 10px;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+      tr.player:nth-child(even) {
+        background: rgba(255, 255, 255, 0.07);
+      }
+      tr.player:hover {
+        background: rgba(77, 175, 255, 0.15);
+        transform: scale(1.015);
+      }
+      td:nth-child(3) {
+        font-weight: 700;
+        color: #5fffd0;
+      }
+      td:nth-child(4) {
+        color: #4dafff;
+      }
+      td:nth-child(7) {
+        font-weight: 700;
+        color: #ffe066;
+      }
+
+      .search-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+      }
+      .search-container input {
+        width: 50%;
+        max-width: 400px;
+        text-align: center;
+        padding: 8px 12px;
+        border-radius: 50px;
+        border: 3px solid black;
+        font-size: 13px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        transition: 0.2s;
+      }
+      .search-container input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-style: italic;
+      }
+      .search-container input:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: scale(1.01);
+      }
+      .search-container input:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px var(--accent-blue);
+      }
+
+      footer {
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+        padding: 15px;
+        background: linear-gradient(
+          to right,
+          #4169e1,
+          #8a2be2,
+          #ff6fb5,
+          #8a2be2,
+          #4169e1
+        );
+        border-top: 1px solid var(--accent-blue);
+      }
+
+      #refresh-notice {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--accent-green);
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px var(--shadow-dark);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s;
+        z-index: 999;
+        font-weight: bold;
+      }
+      #refresh-notice.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* Hero */
+      .hero-image,
+      .hero-video {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        text-shadow: 0 3px 8px #000;
+      }
+      .hero-image {
+        height: 50vh;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+      .hero-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-bottom: 2px solid var(--accent-blue);
+      }
+      .hero-video {
+        height: 60vh;
+      }
+      .hero-video video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 110%;
+        object-fit: cover;
+        z-index: -1;
+      }
+      .hero-video .overlay-text {
+        position: relative;
+        z-index: 1;
+        padding: 0 10px;
+      }
+
+      /* Grid Layout */
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: center;
+          height: auto; /* allow height to shrink naturally */
+          padding: 8px 10px;
+        }
+        .logo-icon {
+          width: 70px;
+          height: 70px;
+        }
+        .nav-buttons {
+          justify-content: center;
+          overflow-x: auto; /* scrollable nav */
+          padding-bottom: 6px;
+        }
+        .nav-buttons button {
+          font-size: 12px;
+          padding: 6px 10px;
+          flex: 0 0 auto; /* prevent shrinking */
+        }
+        .hero-video,
+        .hero-image {
+          height: 35vh; /* smaller hero */
+        }
+        .fixture-card {
+          flex-direction: column;
+          text-align: center;
+          font-size: 14px;
+        }
+        table {
+          display: block;
+          overflow-x: auto; /* horizontal scroll for big tables */
+          font-size: 12px;
+        }
+      }
+
+      /* ========== Small phones (<=480px) ========== */
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 14px;
+          gap: 4px;
+          margin-top: -5px;
+        }
+        .logo-icon {
+          width: 50px;
+          height: 50px;
+        }
+        .header-title {
+          font-size: 24px; /* shrink big title */
+          top: 35%;
+        }
+        .nav-buttons button {
+          font-size: 11px;
+          padding: 5px 8px;
+        }
+        .hero-video,
+        .hero-image {
+          height: 28vh; /* smaller for phones */
+          font-size: 0.9rem;
+        }
+        .fixture-card {
+          font-size: 12px;
+          padding: 6px;
+        }
+        .team-header {
+          font-size: 11px;
+          padding: 6px;
+        }
+        .search-container input {
+          width: 95%;
+          font-size: 11px;
+        }
+        footer {
+          font-size: 9px;
+          padding: 8px;
+        }
+        .top-scorer {
+          min-width: 70px;
+          font-size: 11px;
+        }
+      }
+      #players-grid table,
+      .top-scorers-row {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 class="logo" onclick="refreshData()">
+        <img class="logo-icon" src="LMF Gold.png" alt="Let Me Fantasy Logo" />
+      </h1>
+      <h2 class="header-title">Dashboard</h2>
+      <div class="nav-buttons">
+        <button onclick="window.location.href='fixture.html'">Fixtures</button>
+        <button onclick="window.location.href='FDR.html'">FDR</button>
+        <button onclick="window.location.href='data.html'">
+          Players by Team
+        </button>
+        <button onclick="window.location.href='top-team.html'">Top Team</button>
+      </div>
+    </header>
+
+    <section class="hero-video">
+      <video autoplay muted loop playsinline>
+        <source src="LMF new.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </section>
+
+    <main>
+      <section class="content-grid">
+        <div class="card" id="fixtures">
+          <h2 style="color: #210494">Fixtures & Results</h2>
+          <div class="controls">
+            <button onclick="changeWeek(-1)">◀</button>
+            <span id="week-label">GW 1</span>
+            <button onclick="changeWeek(1)">▶</button>
+          </div>
+          <div id="fixtures-grid">
+            If you seeing this message please click the logo in the top left
+            corner.
+          </div>
+        </div>
+
+        <div class="card" id="top-performers">
+          <h2 style="color: #210494">Top Performers (Gameweek)</h2>
+          <div id="top-scorers-container">Loading...</div>
+        </div>
+      </section>
+
+      <section class="hero-image">
+        <img src="LMF header.jpg" alt="Fantasy Banner" />
+      </section>
+    </main>
+
+    <footer>OFFSIDE LINE</footer>
+
+    <div id="refresh-notice">Data Updated!</div>
+
+    <script>
+      const API_BASE =
+        "https://corsproxy.io/?https://fantasy.premierleague.com/api";
+      let bootstrap, fixtures;
+      let week = 1;
+
+      async function loadData() {
+        try {
+          // Load bootstrap + fixtures
+          bootstrap = await fetch(API_BASE + "/bootstrap-static/").then((r) =>
+            r.json()
+          );
+
+          fixtures = await fetch(API_BASE + "/fixtures/").then((r) => r.json());
+
+          // 🔹 Find current gameweek from bootstrap.events
+          const currentEvent = bootstrap.events.find((e) => e.is_current);
+          if (currentEvent) {
+            week = currentEvent.id;
+          }
+
+          renderFixtures();
+          renderTopScorers();
+        } catch (e) {
+          alert("Error loading data. Check API or CORS proxy.");
+        }
+      }
+
+      async function refreshData() {
+        try {
+          [bootstrap, fixtures] = await Promise.all([
+            fetch(API_BASE + "/bootstrap-static/").then((r) => r.json()),
+            fetch(API_BASE + "/fixtures/").then((r) => r.json()),
+          ]);
+
+          // 🔹 Update week again in case new GW started
+          const currentEvent = bootstrap.events.find((e) => e.is_current);
+          if (currentEvent) {
+            week = currentEvent.id;
+          }
+
+          renderFixtures();
+          renderTopScorers();
+
+          const notice = document.getElementById("refresh-notice");
+          notice.classList.add("show");
+          setTimeout(() => notice.classList.remove("show"), 2000);
+        } catch (e) {
+          alert("Error updating data. Check API or CORS proxy.");
+        }
+      }
+
+      function renderFixtures() {
+        document.getElementById("week-label").innerText = "Game Week " + week;
+        const container = document.getElementById("fixtures-grid");
+        container.innerHTML = "";
+        const weekFixtures = fixtures.filter((f) => f.event === week);
+        if (!weekFixtures.length) {
+          container.innerHTML = "<em>No fixtures scheduled this week.</em>";
+          return;
+        }
+        const fixturesByDay = {};
+        weekFixtures.forEach((f) => {
+          const day = f.kickoff_time
+            ? new Date(f.kickoff_time).toLocaleDateString(undefined, {
+                weekday: "long",
+                month: "short",
+                day: "numeric",
+              })
+            : "TBD";
+          if (!fixturesByDay[day]) fixturesByDay[day] = [];
+          fixturesByDay[day].push(f);
+        });
+        Object.keys(fixturesByDay).forEach((day) => {
+          const dayDiv = document.createElement("div");
+          dayDiv.className = "day-group";
+          const dayHeader = document.createElement("div");
+          dayHeader.className = "day-group-header";
+          dayHeader.innerHTML = `${day} <span class="arrow">▶</span>`;
+          dayDiv.appendChild(dayHeader);
+          const dayContent = document.createElement("div");
+          dayContent.className = "day-group-content";
+          fixturesByDay[day].forEach((f) => {
+            const div = document.createElement("div");
+            div.className = "fixture-card";
+            const home = teamName(f.team_h),
+              away = teamName(f.team_a);
+            const kickoff = f.kickoff_time
+              ? new Date(f.kickoff_time).toLocaleTimeString(undefined, {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : "TBD";
+            div.innerHTML = f.finished
+              ? `<strong>${home} ${f.team_h_score} - ${f.team_a_score} ${away}</strong><br><small>Final</small>`
+              : `<strong>${home} vs ${away}</strong><br><small>${kickoff}</small>`;
+            dayContent.appendChild(div);
+          });
+          dayDiv.appendChild(dayContent);
+          container.appendChild(dayDiv);
+          dayHeader.addEventListener("click", () => {
+            const isOpen = dayContent.classList.contains("show");
+            document.querySelectorAll(".day-group-content").forEach((c) => {
+              c.classList.remove("show");
+              c.previousElementSibling.querySelector(".arrow").style.transform =
+                "rotate(0deg)";
+            });
+            if (!isOpen) {
+              dayContent.classList.add("show");
+              dayHeader.querySelector(".arrow").style.transform =
+                "rotate(90deg)";
+            }
+          });
+        });
+      }
+
+      async function renderTopScorers() {
+        const container = document.getElementById("top-scorers-container");
+        container.innerHTML = "Loading...";
+        try {
+          const data = await fetch(API_BASE + "/event/" + week + "/live/").then(
+            (r) => r.json()
+          );
+          const players = data.elements || [];
+          const positions = { 1: [], 2: [], 3: [], 4: [] };
+
+          players.forEach((p) => {
+            const info = bootstrap.elements.find((e) => e.id === p.id);
+            if (info) positions[info.element_type].push({ ...p, info });
+          });
+
+          container.innerHTML = "";
+          const posNames = { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" };
+
+          Object.keys(positions).forEach((pos) => {
+            const topPlayers = positions[pos]
+              .sort((a, b) => b.stats.total_points - a.stats.total_points)
+              .slice(0, 5);
+            if (!topPlayers.length) return;
+
+            const posHeader = document.createElement("h3");
+            posHeader.textContent = `Top ${posNames[pos]}s`;
+            container.appendChild(posHeader);
+
+            const row = document.createElement("div");
+            row.className = "top-scorers-row";
+
+            topPlayers.forEach((p) => {
+              const div = document.createElement("div");
+              div.className = "top-scorer";
+              const name = p.info?.web_name || "Unknown";
+              const team = teamName(p.info.team);
+              div.innerHTML = `<strong>${name}</strong><br><small>${team} | GW Points: ${p.stats.total_points}</small>`;
+              row.appendChild(div);
+            });
+            container.appendChild(row);
+          });
+        } catch (e) {
+          container.innerHTML = "Top performers unavailable for this gameweek.";
+        }
+      }
+
+      function renderPlayers() {
+        const container = document.getElementById("players-grid");
+        container.innerHTML = "";
+
+        bootstrap.teams
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .forEach((team) => {
+            const teamCard = document.createElement("div");
+            teamCard.className = "team-card";
+
+            const header = document.createElement("div");
+            header.className = "team-header";
+            header.innerHTML = `${team.name} <span class="arrow">▶</span>`;
+            teamCard.appendChild(header);
+
+            const list = document.createElement("div");
+            list.className = "player-list";
+            teamCard.appendChild(list);
+
+            header.addEventListener("click", () => {
+              const isOpen = list.classList.contains("show");
+              document
+                .querySelectorAll(".team-card .player-list")
+                .forEach((pl) => {
+                  pl.classList.remove("show");
+                  pl.previousElementSibling.querySelector(
+                    ".arrow"
+                  ).style.transform = "rotate(0deg)";
+                });
+
+              if (!isOpen) {
+                list.classList.add("show");
+                header.querySelector(".arrow").style.transform =
+                  "rotate(90deg)";
+                // Lazy-load table content only when expanded
+                if (!list.innerHTML) {
+                  const teamPlayers = bootstrap.elements
+                    .filter((p) => p.team === team.id)
+                    .sort((a, b) => b.total_points - a.total_points);
+
+                  const table = document.createElement("table");
+                  table.innerHTML = `<thead>
+              <tr>
+                <th>Name</th><th>Pos</th><th>Pts</th><th>Cost</th>
+                <th>%Sel</th><th>Min</th><th>Form</th><th>G</th><th>A</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${teamPlayers
+                .map(
+                  (p) => `
+                <tr class="player">
+                  <td>${p.web_name}</td>
+                  <td>${posName(p.element_type)}</td>
+                  <td>${p.total_points}</td>
+                  <td>£${(p.now_cost / 10).toFixed(1)}m</td>
+                  <td>${p.selected_by_percent}%</td>
+                  <td>${p.minutes}</td>
+                  <td>${parseFloat(p.form).toFixed(2)}</td>
+                  <td>${p.goals_scored}</td>
+                  <td>${p.assists}</td>
+                </tr>`
+                )
+                .join("")}
+            </tbody>`;
+                  list.appendChild(table);
+                }
+              } else {
+                list.classList.remove("show");
+                header.querySelector(".arrow").style.transform = "rotate(0deg)";
+              }
+            });
+
+            container.appendChild(teamCard);
+          });
+      }
+
+      function changeWeek(dir) {
+        week += dir;
+        if (week < 1) week = 1;
+        if (week > 38) week = 38;
+        document.getElementById("week-label").innerText = "GW " + week;
+        renderFixtures();
+        renderTopScorers();
+      }
+      function teamName(id) {
+        const t = bootstrap.teams.find((x) => x.id === id);
+        return t ? t.name : "Unknown";
+      }
+
+      function posName(id) {
+        return { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" }[id] || "UNK";
+      }
+
+      // ✅ Load data with error logging
+      async function init() {
+        console.log("Loading data...");
+        try {
+          await loadData();
+          console.log("Data loaded successfully:", { bootstrap, fixtures });
+        } catch (err) {
+          console.error("❌ Failed to load data:", err);
+          const container = document.getElementById("fixtures-grid");
+          if (container) {
+            container.innerHTML =
+              "<em>Could not load data. Please refresh or try again later.</em>";
+          }
+        }
+      }
+
+      init();
+
+      // ✅ Refresh every 60 seconds
+      setInterval(() => {
+        console.log("Refreshing data...");
+        refreshData();
+      }, 60000);
+    </script>
+  </body>
+</html>
