@@ -53,12 +53,12 @@
         flex-wrap: wrap;
         gap: 10px;
         transition: all 0.3s ease;
-        height: 125px; /* adjust height */
-        background-image: url("LMF header.jpg"); /* path to your image */
-        background-size: cover; /* makes image cover the whole area */
-        background-position: bottom; /* keeps image centered */
+        height: 125px; 
+        background-image: url("LMF header.jpg"); 
+        background-size: cover; 
+        background-position: bottom; 
         background-repeat: no-repeat;
-        position: relative; /* allow absolute positioning inside */
+        position: relative; 
       }
       .header-title {
         position: absolute;
@@ -70,7 +70,7 @@
         font-weight: bold;
         text-shadow: 5px 0px 0px #ff6fb5;
         text-align: center;
-        pointer-events: none; /* clicks go through to logo/nav */
+        pointer-events: none; 
         white-space: nowrap;
       }
 
@@ -183,7 +183,7 @@
         text-align: center;
       }
 
-      /* Fixtures */
+      
       #fixtures-grid {
         display: flex;
         flex-direction: column;
@@ -255,10 +255,10 @@
       }
       .controls {
         display: flex;
-        justify-content: center; /* centers everything horizontally */
-        align-items: center; /* centers vertically */
-        gap: 12px; /* spacing between arrows and label */
-        margin-bottom: 16px; /* optional spacing below controls */
+        justify-content: center; 
+        align-items: center; 
+        gap: 12px; 
+        margin-bottom: 16px; 
       }
       .controls button {
         width: 36px;
@@ -282,7 +282,7 @@
         text-align: center;
       }
 
-      /* Top Scorers */
+      
       #top-scorers-container {
         display: flex;
         flex-direction: column;
@@ -316,7 +316,7 @@
         box-shadow: 0 6px 18px var(--shadow-dark);
       }
 
-      /* Team Cards */
+      
       .team-card {
         background: #1f2833;
         margin-bottom: 14px;
@@ -525,19 +525,19 @@
         padding: 0 10px;
       }
 
-      /* Grid Layout */
+      
       .content-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
       }
 
-      /* Responsive */
+     
       @media (max-width: 768px) {
         header {
           flex-direction: column;
           align-items: center;
-          height: auto; /* allow height to shrink naturally */
+          height: auto; 
           padding: 8px 10px;
         }
         .logo-icon {
@@ -546,17 +546,17 @@
         }
         .nav-buttons {
           justify-content: center;
-          overflow-x: auto; /* scrollable nav */
+          overflow-x: auto;
           padding-bottom: 6px;
         }
         .nav-buttons button {
           font-size: 12px;
           padding: 6px 10px;
-          flex: 0 0 auto; /* prevent shrinking */
+          flex: 0 0 auto; 
         }
         .hero-video,
         .hero-image {
-          height: 35vh; /* smaller hero */
+          height: 35vh;
         }
         .fixture-card {
           flex-direction: column;
@@ -565,12 +565,12 @@
         }
         table {
           display: block;
-          overflow-x: auto; /* horizontal scroll for big tables */
+          overflow-x: auto;
           font-size: 12px;
         }
       }
 
-      /* ========== Small phones (<=480px) ========== */
+      
       @media (max-width: 480px) {
         .logo {
           font-size: 14px;
@@ -582,7 +582,7 @@
           height: 50px;
         }
         .header-title {
-          font-size: 24px; /* shrink big title */
+          font-size: 24px; 
           top: 35%;
         }
         .nav-buttons button {
@@ -591,7 +591,7 @@
         }
         .hero-video,
         .hero-image {
-          height: 28vh; /* smaller for phones */
+          height: 28vh; 
           font-size: 0.9rem;
         }
         .fixture-card {
@@ -618,7 +618,7 @@
       #players-grid table,
       .top-scorers-row {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+        -webkit-overflow-scrolling: touch; 
       }
     </style>
   </head>
@@ -683,14 +683,14 @@
 
       async function loadData() {
         try {
-          // Load bootstrap + fixtures
+          
           bootstrap = await fetch(API_BASE + "/bootstrap-static/").then((r) =>
             r.json()
           );
 
           fixtures = await fetch(API_BASE + "/fixtures/").then((r) => r.json());
 
-          // 🔹 Find current gameweek from bootstrap.events
+          
           const currentEvent = bootstrap.events.find((e) => e.is_current);
           if (currentEvent) {
             week = currentEvent.id;
@@ -710,7 +710,7 @@
             fetch(API_BASE + "/fixtures/").then((r) => r.json()),
           ]);
 
-          // 🔹 Update week again in case new GW started
+          
           const currentEvent = bootstrap.events.find((e) => e.is_current);
           if (currentEvent) {
             week = currentEvent.id;
@@ -871,7 +871,7 @@
                 list.classList.add("show");
                 header.querySelector(".arrow").style.transform =
                   "rotate(90deg)";
-                // Lazy-load table content only when expanded
+                
                 if (!list.innerHTML) {
                   const teamPlayers = bootstrap.elements
                     .filter((p) => p.team === team.id)
@@ -931,7 +931,7 @@
         return { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" }[id] || "UNK";
       }
 
-      // ✅ Load data with error logging
+     
       async function init() {
         console.log("Loading data...");
         try {
@@ -949,7 +949,7 @@
 
       init();
 
-      // ✅ Refresh every 60 seconds
+     
       setInterval(() => {
         console.log("Refreshing data...");
         refreshData();
