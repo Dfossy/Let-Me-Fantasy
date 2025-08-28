@@ -50,12 +50,12 @@
         flex-wrap: wrap;
         gap: 10px;
         transition: all 0.3s ease;
-        height: 125px; /* adjust height */
-        background-image: url("LMF header.jpg"); /* path to your image */
-        background-size: cover; /* makes image cover the whole area */
-        background-position: bottom; /* keeps image centered */
+        height: 125px; 
+        background-image: url("LMF header.jpg"); 
+        background-size: cover;
+        background-position: bottom;
         background-repeat: no-repeat;
-        position: relative; /* allow absolute positioning inside */
+        position: relative; 
       }
       .header-title {
         position: absolute;
@@ -66,7 +66,7 @@
         font-size: 50px;
         font-weight: bold;
         text-shadow: 5px 00px 0px #ff6fb5;
-        pointer-events: none; /* clicks go through to logo/nav */
+        pointer-events: none; 
       }
 
       .logo {
@@ -224,7 +224,7 @@
         width: 100%;
         border-collapse: collapse;
         color: #fff;
-        min-width: 600px; /* stops table from squishing too much */
+        min-width: 600px; 
       }
 
       th,
@@ -232,7 +232,7 @@
         padding: 6px 10px;
         text-align: center;
         font-size: 12px;
-        white-space: nowrap; /* keeps columns tidy */
+        white-space: nowrap;
       }
 
       th {
@@ -248,15 +248,15 @@
         background: rgba(77, 175, 255, 0.2);
       }
 
-      /* NEW: wrapper for scroll */
+      
       .table-container {
         width: 100%;
-        overflow-x: auto; /* horizontal scroll */
-        -webkit-overflow-scrolling: touch; /* smooth on iOS */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         margin-top: 10px;
       }
 
-      /* Mobile tweaks */
+      
       @media (max-width: 768px) {
         th,
         td {
@@ -271,7 +271,7 @@
           padding: 4px 6px;
         }
         table {
-          min-width: 500px; /* forces horizontal scroll */
+          min-width: 500px; 
         }
       }
 
@@ -340,25 +340,25 @@
         padding: 0 10px;
       }
 
-      /* Grid Layout */
+      
       .content-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
       }
 
-      /* Responsive */
+      
       @media (max-width: 768px) {
         header {
           flex-direction: column;
           align-items: center;
-          height: auto; /* let height adjust naturally */
+          height: auto; 
           padding: 10px;
         }
 
         .header-title {
           font-size: 28px;
-          top: 60%; /* adjust title position */
+          top: 60%; 
         }
 
         .logo-icon {
@@ -378,7 +378,7 @@
       @media (max-width: 480px) {
         .header-title {
           font-size: 20px;
-          top: 45%; /* move up title */
+          top: 45%; 
           text-shadow: 2px 2px 0px #ff6fb5;
         }
 
@@ -399,11 +399,11 @@
 
         .hero-video,
         .hero-image {
-          height: 25vh; /* smaller hero */
+          height: 25vh;
         }
 
         table {
-          min-width: 450px; /* smaller for phones */
+          min-width: 450px; 
         }
 
         th,
@@ -417,15 +417,15 @@
           padding: 8px;
         }
       }
-      /* Wrapper for table scroll on mobile */
+      
       .table-container {
         width: 100%;
-        overflow-x: auto; /* allows horizontal scroll */
-        -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch; 
         margin-top: 10px;
       }
 
-      /* Prevent table from squishing too much */
+      
       table {
         min-width: 600px;
         border-collapse: collapse;
@@ -436,11 +436,11 @@
       td {
         padding: 6px 10px;
         text-align: center;
-        white-space: nowrap; /* prevents text from wrapping */
+        white-space: nowrap; 
         font-size: 12px;
       }
 
-      /* Mobile tweaks */
+     
       @media (max-width: 480px) {
         th,
         td {
@@ -519,7 +519,7 @@
             );
             if (!teamPlayers.length) return;
 
-            // sort players by selected criteria
+           
             teamPlayers.sort((a, b) => b[currentSort] - a[currentSort]);
 
             const totalGoals = teamPlayers.reduce(
@@ -560,7 +560,7 @@
             const list = document.createElement("div");
             list.className = "player-list";
 
-            const tableContainer = document.createElement("div"); // NEW wrapper
+            const tableContainer = document.createElement("div"); 
             tableContainer.className = "table-container";
 
             const table = document.createElement("table");
@@ -591,7 +591,7 @@
             list.appendChild(tableContainer);
             card.appendChild(list);
 
-            // Toggle player list on header click
+            
             header.addEventListener("click", () => {
               list.classList.toggle("show");
             });
@@ -604,10 +604,10 @@
         return { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" }[id] || "UNK";
       }
 
-      // Search input
+      
       document.getElementById("search").addEventListener("input", renderTeams);
 
-      // Sorting buttons
+      
       document.querySelectorAll(".filter-container button").forEach((btn) => {
         btn.addEventListener("click", () => {
           currentSort = btn.dataset.sort;
