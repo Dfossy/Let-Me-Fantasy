@@ -51,12 +51,12 @@
         flex-wrap: wrap;
         gap: 10px;
         transition: all 0.3s ease;
-        height: 125px; /* adjust height */
-        background-image: url("LMF header.jpg"); /* path to your image */
-        background-size: cover; /* makes image cover the whole area */
-        background-position: bottom; /* keeps image centered */
+        height: 125px; 
+        background-image: url("LMF header.jpg"); 
+        background-size: cover; 
+        background-position: bottom; 
         background-repeat: no-repeat;
-        position: relative; /* allow absolute positioning inside */
+        position: relative; 
       }
       .header-title {
         position: absolute;
@@ -67,7 +67,7 @@
         font-size: 45px;
         font-weight: bold;
         text-shadow: 5px 00px 0px #ff6fb5;
-        pointer-events: none; /* clicks go through to logo/nav */
+        pointer-events: none; 
       }
 
       .logo {
@@ -185,7 +185,7 @@
         transform: scale(1.05);
       }
 
-      /* Pitch Styling */
+      
       .pitch-container {
         display: flex;
         flex-direction: column;
@@ -199,15 +199,15 @@
         border: 2px solid var(--accent-blue);
         border-radius: 10px;
         width: 100%;
-        max-width: 800px; /* Wider horizontal look */
+        max-width: 800px; 
         height: 400px;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
         padding: 5px;
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-position: center 1px; /* Options: top, bottom, left, right, or exact pixels like 50px 20px */
+        background-repeat: no-repeat;
+        background-position: center 1px; 
         background-size: cover;
       }
 
@@ -220,10 +220,10 @@
       }
 
       .player-card {
-        background-image: url("LMF kit.png"); /* quotes because of space */
-        background-size: cover; /* makes the image cover the card */
-        background-position: center; /* centers the image */
-        background-repeat: no-repeat; /* prevents repeating */
+        background-image: url("LMF kit.png"); 
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat;
         color: white;
         text-align: center;
         font-weight: bold;
@@ -239,7 +239,7 @@
         transform: translateY(-4px);
         box-shadow: 0 8px 20px var(--shadow);
       }
-      /* Hero */
+      
       .hero-image,
       .hero-video {
         width: 100%;
@@ -281,12 +281,12 @@
         z-index: 1;
         padding: 0 10px;
       }
-      /* Responsive */
+      
       @media (max-width: 768px) {
         header {
           flex-direction: column;
           align-items: center;
-          height: auto; /* allow height to shrink naturally */
+          height: auto; 
           padding: 8px 10px;
         }
         .logo-icon {
@@ -295,17 +295,17 @@
         }
         .nav-buttons {
           justify-content: center;
-          overflow-x: auto; /* scrollable nav */
+          overflow-x: auto; 
           padding-bottom: 6px;
         }
         .nav-buttons button {
           font-size: 12px;
           padding: 6px 10px;
-          flex: 0 0 auto; /* prevent shrinking */
+          flex: 0 0 auto;
         }
         .hero-video,
         .hero-image {
-          height: 35vh; /* smaller hero */
+          height: 35vh; 
         }
         .fixture-card {
           flex-direction: column;
@@ -314,12 +314,12 @@
         }
         table {
           display: block;
-          overflow-x: auto; /* horizontal scroll for big tables */
+          overflow-x: auto; 
           font-size: 12px;
         }
       }
 
-      /* ========== Small phones (<=480px) ========== */
+     
       @media (max-width: 480px) {
         .logo {
           font-size: 14px;
@@ -331,7 +331,7 @@
           height: 50px;
         }
         .header-title {
-          font-size: 24px; /* shrink big title */
+          font-size: 24px; 
           top: 35%;
         }
         .nav-buttons button {
@@ -340,7 +340,7 @@
         }
         .hero-video,
         .hero-image {
-          height: 28vh; /* smaller for phones */
+          height: 28vh; 
           font-size: 0.9rem;
         }
         .fixture-card {
@@ -367,7 +367,7 @@
       #players-grid table,
       .top-scorers-row {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+        -webkit-overflow-scrolling: touch; 
       }
     </style>
   </head>
