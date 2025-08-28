@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <style>
-      /* ===== Global Styles ===== */
+     
       :root {
         --bg-dark: #121826;
         --bg-header: #1f2a44;
@@ -40,7 +40,7 @@
         padding: 0;
       }
 
-      /* ===== Header ===== */
+    
       header {
         padding: 5px 20px;
         background: linear-gradient(
@@ -62,12 +62,12 @@
         flex-wrap: wrap;
         gap: 10px;
         transition: all 0.3s ease;
-        height: 125px; /* adjust height */
-        background-image: url("LMF header.jpg"); /* path to your image */
-        background-size: cover; /* makes image cover the whole area */
-        background-position: bottom; /* keeps image centered */
+        height: 125px;
+        background-image: url("LMF header.jpg"); 
+        background-size: cover;
+        background-position: bottom; 
         background-repeat: no-repeat;
-        position: relative; /* allow absolute positioning inside */
+        position: relative; 
       }
       .header-title {
         position: absolute;
@@ -78,7 +78,7 @@
         font-size: 50px;
         font-weight: bold;
         text-shadow: 5px 00px 0px #ff6fb5;
-        pointer-events: none; /* clicks go through to logo/nav */
+        pointer-events: none;
       }.nav-buttons {
         display: flex;
         gap: 10px;
@@ -155,7 +155,7 @@
         padding: 0 10px;
       }
 
-      /* ===== Main Content ===== */
+     
       main {
         max-width: 1200px;
         margin: 20px auto;
@@ -171,7 +171,7 @@
         padding-bottom: 5px;
       }
 
-      /* ===== Table Styles ===== */
+     
       .table-wrapper {
         overflow-x: auto;
         margin-bottom: 40px;
@@ -216,12 +216,12 @@
         color: #fff;
       }
 
-      /* Responsive */
+     
       @media (max-width: 768px) {
         header {
           flex-direction: column;
           align-items: center;
-          height: auto; /* allow height to shrink naturally */
+          height: auto; 
           padding: 8px 10px;
         }
         .logo-icon {
@@ -230,17 +230,17 @@
         }
         .nav-buttons {
           justify-content: center;
-          overflow-x: auto; /* scrollable nav */
+          overflow-x: auto; 
           padding-bottom: 6px;
         }
         .nav-buttons button {
           font-size: 12px;
           padding: 6px 10px;
-          flex: 0 0 auto; /* prevent shrinking */
+          flex: 0 0 auto; 
         }
         .hero-video,
         .hero-image {
-          height: 35vh; /* smaller hero */
+          height: 35vh; 
         }
         .fixture-card {
           flex-direction: column;
@@ -249,12 +249,12 @@
         }
         table {
           display: block;
-          overflow-x: auto; /* horizontal scroll for big tables */
+          overflow-x: auto; 
           font-size: 12px;
         }
       }
 
-      /* ========== Small phones (<=480px) ========== */
+      
       @media (max-width: 480px) {
         .logo {
           font-size: 14px;
@@ -266,7 +266,7 @@
           height: 50px;
         }
         .header-title {
-          font-size: 24px; /* shrink big title */
+          font-size: 24px; 
           top: 35%;
         }
         .nav-buttons button {
@@ -275,7 +275,7 @@
         }
         .hero-video,
         .hero-image {
-          height: 28vh; /* smaller for phones */
+          height: 28vh; 
           font-size: 0.9rem;
         }
         .fixture-card {
@@ -302,7 +302,7 @@
       #players-grid table,
       .top-scorers-row {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+        -webkit-overflow-scrolling: touch; 
       }
       .logo {
         display: flex;
@@ -384,7 +384,7 @@
     <footer>OFFSIDE LINE</footer>
 
     <script>
-      // ===== Config & Utilities =====
+      
       const apiUrl =
         "https://corsproxy.io/?https://fantasy.premierleague.com/api/bootstrap-static/";
       const fixturesUrl =
@@ -397,7 +397,7 @@
         return "var(--accent-red)";
       }
 
-      // ===== Load FPL Data =====
+     
       async function loadTopPlayersByPosition() {
         try {
           const [resData, resFixtures] = await Promise.all([
@@ -413,7 +413,7 @@
           const teamMap = {};
           teams.forEach((t) => (teamMap[t.id] = t.name));
 
-          // Determine current Gameweek
+         
           const now = new Date();
           const upcomingFixtures = fixtures.filter(
             (f) => !f.finished && f.event && new Date(f.kickoff_time) > now
@@ -426,7 +426,7 @@
             "gwLabel"
           ).textContent = `Current GW: ${currentGW}`;
 
-          // Group players by position
+         
           const playersByPosition = { GK: [], DEF: [], MID: [], FWD: [] };
           elements
             .filter((p) => p.minutes > 0 && p.total_points > 0)
@@ -467,7 +467,7 @@
               });
             });
 
-          // Render Tables
+          
           const mainContent = document.getElementById("mainContent");
           mainContent.innerHTML = "";
 
@@ -525,9 +525,9 @@
         }
       }
 
-      // ===== Initial Load & Refresh =====
+     
       loadTopPlayersByPosition();
-      setInterval(loadTopPlayersByPosition, 7 * 24 * 60 * 60 * 1000); // weekly refresh
+      setInterval(loadTopPlayersByPosition, 7 * 24 * 60 * 60 * 1000); 
     </script>
   </body>
 </html>
