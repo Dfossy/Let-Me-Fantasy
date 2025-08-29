@@ -534,41 +534,59 @@
 
      
       @media (max-width: 768px) {
-        header {
-          flex-direction: column;
-          align-items: center;
-          height: auto; 
-          padding: 8px 10px;
-        }
-        .logo-icon {
-          width: 70px;
-          height: 70px;
-        }
-        .nav-buttons {
-          justify-content: center;
-          overflow-x: auto;
-          padding-bottom: 6px;
-        }
-        .nav-buttons button {
-          font-size: 12px;
-          padding: 6px 10px;
-          flex: 0 0 auto; 
-        }
-        .hero-video,
-        .hero-image {
-          height: 35vh;
-        }
-        .fixture-card {
-          flex-direction: column;
-          text-align: center;
-          font-size: 14px;
-        }
-        table {
-          display: block;
-          overflow-x: auto;
-          font-size: 12px;
-        }
-      }
+  header {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 8px 10px;
+  }
+
+  .logo-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .nav-buttons {
+    justify-content: center;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .nav-buttons button {
+    font-size: 12px;
+    padding: 6px 10px;
+    flex: 0 0 auto;
+  }
+
+  .hero-video,
+  .hero-image {
+    height: 35vh;
+  }
+
+  .fixture-card {
+    flex-direction: column;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    font-size: 12px;
+  }
+
+  
+  .content-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px;
+  }
+
+  .content-grid > .card {
+    width: 100% !important;
+  }
+}
+
 
       
       @media (max-width: 480px) {
