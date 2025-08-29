@@ -50,12 +50,12 @@
         flex-wrap: wrap;
         gap: 10px;
         transition: all 0.3s ease;
-        height: 125px; 
-        background-image: url("LMF header.jpg"); 
-        background-size: cover;
-        background-position: bottom;
+        height: 125px; /* adjust height */
+        background-image: url("LMF header.jpg"); /* path to your image */
+        background-size: cover; /* makes image cover the whole area */
+        background-position: bottom; /* keeps image centered */
         background-repeat: no-repeat;
-        position: relative; 
+        position: relative; /* allow absolute positioning inside */
       }
       .header-title {
         position: absolute;
@@ -66,7 +66,7 @@
         font-size: 50px;
         font-weight: bold;
         text-shadow: 5px 00px 0px #ff6fb5;
-        pointer-events: none; 
+        pointer-events: none; /* clicks go through to logo/nav */
       }
 
       .logo {
@@ -224,7 +224,7 @@
         width: 100%;
         border-collapse: collapse;
         color: #fff;
-        min-width: 600px; 
+        min-width: 600px; /* stops table from squishing too much */
       }
 
       th,
@@ -232,7 +232,7 @@
         padding: 6px 10px;
         text-align: center;
         font-size: 12px;
-        white-space: nowrap;
+        white-space: nowrap; /* keeps columns tidy */
       }
 
       th {
@@ -248,15 +248,15 @@
         background: rgba(77, 175, 255, 0.2);
       }
 
-      
+      /* NEW: wrapper for scroll */
       .table-container {
         width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow-x: auto; /* horizontal scroll */
+        -webkit-overflow-scrolling: touch; /* smooth on iOS */
         margin-top: 10px;
       }
 
-      
+      /* Mobile tweaks */
       @media (max-width: 768px) {
         th,
         td {
@@ -271,7 +271,7 @@
           padding: 4px 6px;
         }
         table {
-          min-width: 500px; 
+          min-width: 500px; /* forces horizontal scroll */
         }
       }
 
@@ -340,25 +340,25 @@
         padding: 0 10px;
       }
 
-      
+      /* Grid Layout */
       .content-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
       }
 
-      
+      /* Responsive */
       @media (max-width: 768px) {
         header {
           flex-direction: column;
           align-items: center;
-          height: auto; 
+          height: auto; /* let height adjust naturally */
           padding: 10px;
         }
 
         .header-title {
           font-size: 28px;
-          top: 60%; 
+          top: 60%; /* adjust title position */
         }
 
         .logo-icon {
@@ -378,7 +378,7 @@
       @media (max-width: 480px) {
         .header-title {
           font-size: 20px;
-          top: 45%; 
+          top: 45%; /* move up title */
           text-shadow: 2px 2px 0px #ff6fb5;
         }
 
@@ -399,11 +399,11 @@
 
         .hero-video,
         .hero-image {
-          height: 25vh;
+          height: 25vh; /* smaller hero */
         }
 
         table {
-          min-width: 450px; 
+          min-width: 450px; /* smaller for phones */
         }
 
         th,
@@ -417,15 +417,14 @@
           padding: 8px;
         }
       }
-      
+
       .table-container {
         width: 100%;
-        overflow-x: auto; 
-        -webkit-overflow-scrolling: touch; 
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         margin-top: 10px;
       }
 
-      
       table {
         min-width: 600px;
         border-collapse: collapse;
@@ -436,11 +435,10 @@
       td {
         padding: 6px 10px;
         text-align: center;
-        white-space: nowrap; 
+        white-space: nowrap;
         font-size: 12px;
       }
 
-     
       @media (max-width: 480px) {
         th,
         td {
@@ -450,6 +448,47 @@
         table {
           min-width: 500px;
         }
+      }
+      .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .table-wrapper table {
+        min-width: 800px;
+        border-collapse: collapse;
+      }
+
+      .table-wrapper thead th {
+        position: sticky;
+        top: 0;
+        background: #111;
+        z-index: 2;
+      }
+      .team-select-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      #team-select {
+        width: 60%;
+        max-width: 400px;
+        padding: 12px 16px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: 2px solid var(--accent-blue);
+        background-color: var(--card-bg);
+        color: var(--text-light);
+        outline: none;
+        cursor: pointer;
+        box-shadow: 0 4px 10px var(--shadow-dark);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      #team-select:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 15px var(--shadow-dark);
       }
     </style>
   </head>
@@ -473,8 +512,10 @@
       </video>
     </section>
 
-    <div class="search-container">
-      <input type="text" id="search" placeholder="Search player..." />
+    <div class="team-select-container">
+      <select id="team-select">
+        <option value="">Select a team...</option>
+      </select>
     </div>
 
     <div class="filter-container">
@@ -498,80 +539,62 @@
           bootstrapData = await fetch(API_BASE + "/bootstrap-static/").then(
             (r) => r.json()
           );
-          renderTeams();
         } catch (e) {
           document.getElementById("teams-container").innerHTML =
             "Error loading data.";
+          return;
         }
-      }
 
-      function renderTeams() {
-        const container = document.getElementById("teams-container");
-        const query = document.getElementById("search").value.toLowerCase();
-        container.innerHTML = "";
-
+        // populate team dropdown
+        const teamSelect = document.getElementById("team-select");
         bootstrapData.teams
           .sort((a, b) => a.name.localeCompare(b.name))
           .forEach((team) => {
-            let teamPlayers = bootstrapData.elements.filter(
-              (p) =>
-                p.team === team.id && p.web_name.toLowerCase().includes(query)
-            );
-            if (!teamPlayers.length) return;
+            let opt = document.createElement("option");
+            opt.value = team.id;
+            opt.textContent = team.name;
+            teamSelect.appendChild(opt);
+          });
 
-           
-            teamPlayers.sort((a, b) => b[currentSort] - a[currentSort]);
+        // change listener (when a team is chosen, show it)
+        teamSelect.addEventListener("change", () => {
+          const teamId = teamSelect.value;
+          renderTeam(teamId);
+        });
+      }
 
-            const totalGoals = teamPlayers.reduce(
-              (sum, p) => sum + p.goals_scored,
-              0
-            );
-            const totalAssists = teamPlayers.reduce(
-              (sum, p) => sum + p.assists,
-              0
-            );
-            const totalCleanSheets = teamPlayers.reduce(
-              (sum, p) => sum + p.clean_sheets,
-              0
-            );
-            const totalPoints = teamPlayers.reduce(
-              (sum, p) => sum + p.total_points,
-              0
-            );
+      function renderTeam(teamId) {
+        const container = document.getElementById("teams-container");
+        container.innerHTML = "";
+        if (!teamId) return; // show nothing if no team selected
 
-            const card = document.createElement("div");
-            card.className = "team-card";
+        let team = bootstrapData.teams.find((t) => t.id == teamId);
+        let teamPlayers = bootstrapData.elements.filter(
+          (p) => p.team == team.id
+        );
 
-            const header = document.createElement("div");
-            header.className = "team-header";
-            header.innerHTML = `${team.name} (${teamPlayers.length} players) <span>▼</span>`;
-            card.appendChild(header);
+        // sort players
+        teamPlayers.sort((a, b) => b[currentSort] - a[currentSort]);
 
-            const statsDiv = document.createElement("div");
-            statsDiv.className = "team-stats";
-            statsDiv.innerHTML = `
-      <span>Total Points: ${totalPoints}</span>
-      <span>Goals: ${totalGoals}</span>
-      <span>Assists: ${totalAssists}</span>
-      <span>Clean Sheets: ${totalCleanSheets}</span>
-    `;
-            card.appendChild(statsDiv);
+        const card = document.createElement("div");
+        card.className = "team-card";
 
-            const list = document.createElement("div");
-            list.className = "player-list";
+        const header = document.createElement("div");
+        header.className = "team-header";
+        header.textContent = `${team.name} (${teamPlayers.length} players)`;
+        card.appendChild(header);
 
-            const tableContainer = document.createElement("div"); 
-            tableContainer.className = "table-container";
-
-            const table = document.createElement("table");
-            table.innerHTML = `<thead>
-      <tr>
-        <th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
-        <th>%Sel</th><th>Minutes</th><th>Form</th><th>Goals</th><th>Assists</th><th>CS</th>
-      </tr></thead>
-      <tbody>${teamPlayers
-        .map(
-          (p) => `
+        const table = document.createElement("table");
+        table.innerHTML = `<thead>
+    <tr>
+      <th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
+      <th>%Sel</th><th>Minutes</th><th>Form</th><th>Goals</th><th>Assists</th><th>CS</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${teamPlayers
+      .map(
+        (p) => `
         <tr class="player">
           <td>${p.web_name}</td>
           <td>${posName(p.element_type)}</td>
@@ -584,34 +607,29 @@
           <td>${p.assists}</td>
           <td>${p.clean_sheets}</td>
         </tr>`
-        )
-        .join("")}
-      </tbody>`;
-            tableContainer.appendChild(table);
-            list.appendChild(tableContainer);
-            card.appendChild(list);
+      )
+      .join("")}
+  </tbody>`;
 
-            
-            header.addEventListener("click", () => {
-              list.classList.toggle("show");
-            });
+        // ✅ Wrap table in scrollable div
+        const wrapper = document.createElement("div");
+        wrapper.className = "table-wrapper";
+        wrapper.appendChild(table);
+        card.appendChild(wrapper);
 
-            container.appendChild(card);
-          });
+        container.appendChild(card);
       }
 
       function posName(id) {
         return { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" }[id] || "UNK";
       }
 
-      
-      document.getElementById("search").addEventListener("input", renderTeams);
-
-      
+      // Sorting buttons
       document.querySelectorAll(".filter-container button").forEach((btn) => {
         btn.addEventListener("click", () => {
           currentSort = btn.dataset.sort;
-          renderTeams();
+          const teamId = document.getElementById("team-select").value;
+          renderTeam(teamId);
         });
       });
 
