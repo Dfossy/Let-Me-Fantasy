@@ -14,6 +14,7 @@
         --card-bg: #1f2937;
         --text-light: #e5e7eb;
         --accent: #3b82f6;
+        --accent-blue: #4dafff; /* ✅ Added */
         --easy: #22c55e;
         --medium: #facc15;
         --hard: #ef4444;
@@ -47,7 +48,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: sticky;
+        position: sticky; /* ✅ keep sticky */
         top: 0;
         z-index: 100;
         border-bottom: 2px solid var(--accent-blue);
@@ -56,22 +57,22 @@
         gap: 10px;
         transition: all 0.3s ease;
         height: 125px;
-        background-image: url("LMF header.jpg"); 
-        background-size: cover; 
-        background-position: bottom; 
+        background-image: url("LMF header.jpg");
+        background-size: cover;
+        background-position: bottom;
         background-repeat: no-repeat;
-        position: relative; 
       }
+
       .header-title {
         position: absolute;
         left: 50%;
-        top: 30%;
+        top: 35%;
         transform: translate(-50%, -50%);
         color: whitesmoke;
-        font-size: 50px;
+        font-size: 60px;
         font-weight: bold;
-        text-shadow: 5px 00px 0px #ff6fb5;
-        pointer-events: none; 
+        text-shadow: 5px 0 0 #ff6fb5; /* fixed shadow syntax */
+        pointer-events: none;
       }
 
       .logo {
@@ -202,15 +203,15 @@
       }
 
       .easy {
-        background: green;
+        background: var(--easy);
         color: #111;
       }
       .medium {
-        background: yellow;
+        background: var(--medium);
         color: #111;
       }
       .hard {
-        background: red;
+        background: var(--hard);
         color: #111;
       }
 
@@ -218,7 +219,8 @@
         opacity: 0.9;
         font-weight: 600;
       }
-      
+
+      /* Hero */
       .hero-image,
       .hero-video {
         width: 100%;
@@ -260,19 +262,19 @@
         padding: 0 10px;
       }
 
-      
+      /* Grid Layout */
       .content-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
       }
 
-      
+      /* Responsive */
       @media (max-width: 768px) {
         header {
           flex-direction: column;
           align-items: center;
-          height: auto; 
+          height: auto;
           padding: 8px 10px;
         }
         .logo-icon {
@@ -281,17 +283,17 @@
         }
         .nav-buttons {
           justify-content: center;
-          overflow-x: auto; 
+          overflow-x: auto;
           padding-bottom: 6px;
         }
         .nav-buttons button {
           font-size: 12px;
           padding: 6px 10px;
-          flex: 0 0 auto; 
+          flex: 0 0 auto;
         }
         .hero-video,
         .hero-image {
-          height: 35vh; 
+          height: 35vh;
         }
         .fixture-card {
           flex-direction: column;
@@ -300,12 +302,12 @@
         }
         table {
           display: block;
-          overflow-x: auto; 
+          overflow-x: auto;
           font-size: 12px;
         }
       }
 
-      
+      /* Small phones (<=480px) */
       @media (max-width: 480px) {
         .logo {
           font-size: 14px;
@@ -317,8 +319,8 @@
           height: 50px;
         }
         .header-title {
-          font-size: 24px; 
-          top: 35%;
+          font-size: 24px;
+          top: 50%;
         }
         .nav-buttons button {
           font-size: 11px;
@@ -326,7 +328,7 @@
         }
         .hero-video,
         .hero-image {
-          height: 28vh; 
+          height: 28vh;
           font-size: 0.9rem;
         }
         .fixture-card {
@@ -350,11 +352,13 @@
           font-size: 11px;
         }
       }
+
       #players-grid table,
       .top-scorers-row {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch; 
+        -webkit-overflow-scrolling: touch;
       }
+
       footer {
         text-align: center;
         font-size: 12px;
@@ -394,12 +398,14 @@
         Your browser does not support the video tag.
       </video>
     </section>
+
     <main>
       <div id="loading" class="loading">Loading data...</div>
       <div class="table-container">
         <table id="heatmap"></table>
       </div>
     </main>
+
     <footer>OFFSIDE LINE</footer>
 
     <script>
@@ -486,7 +492,6 @@
                   cell.textContent = displayText;
                   cell.classList.add("played");
                 } else {
-                  
                   cell.textContent = opponent.short_name || opponent.name;
                 }
               }
@@ -503,9 +508,9 @@
         }
       }
 
-      
+      // Auto-update every 5 minutes
       buildHeatmap();
-      setInterval(buildHeatmap, 300000); 
+      setInterval(buildHeatmap, 300000);
     </script>
   </body>
 </html>
