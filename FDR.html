@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <style>
-     
+      /* ===== Global Styles ===== */
       :root {
         --bg-dark: #121826;
         --bg-header: #1f2a44;
@@ -21,6 +21,7 @@
         --accent-yellow: #ffd700;
         --accent-red: #ff4500;
         --highlight-color: #444cff;
+        --accent-blue: #4dafff; /* FIX: Added missing variable */
         --border-radius: 8px;
         --transition-speed: 0.3s;
       }
@@ -40,7 +41,7 @@
         padding: 0;
       }
 
-    
+      /* ===== Header ===== */
       header {
         padding: 5px 20px;
         background: linear-gradient(
@@ -63,23 +64,26 @@
         gap: 10px;
         transition: all 0.3s ease;
         height: 125px;
-        background-image: url("LMF header.jpg"); 
+        background-image: url("LMF header.jpg");
         background-size: cover;
-        background-position: bottom; 
+        background-position: bottom;
         background-repeat: no-repeat;
-        position: relative; 
+        position: relative;
       }
+
       .header-title {
         position: absolute;
         left: 50%;
-        top: 30%;
+        top: 35%;
         transform: translate(-50%, -50%);
         color: whitesmoke;
-        font-size: 50px;
+        font-size: 60px;
         font-weight: bold;
-        text-shadow: 5px 00px 0px #ff6fb5;
+        text-shadow: 5px 0 0 #ff6fb5; /* fixed shadow syntax */
         pointer-events: none;
-      }.nav-buttons {
+      }
+
+      .nav-buttons {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
@@ -113,7 +117,10 @@
         font-size: 1rem;
         font-weight: 400;
         color: var(--text-muted);
+        text-align: center;
       }
+
+      /* ===== Hero Section ===== */
       .hero-image,
       .hero-video {
         width: 100%;
@@ -155,7 +162,7 @@
         padding: 0 10px;
       }
 
-     
+      /* ===== Main Content ===== */
       main {
         max-width: 1200px;
         margin: 20px auto;
@@ -171,7 +178,7 @@
         padding-bottom: 5px;
       }
 
-     
+      /* ===== Table Styles ===== */
       .table-wrapper {
         overflow-x: auto;
         margin-bottom: 40px;
@@ -216,12 +223,12 @@
         color: #fff;
       }
 
-     
+      /* Responsive Fixes */
       @media (max-width: 768px) {
         header {
           flex-direction: column;
           align-items: center;
-          height: auto; 
+          height: auto;
           padding: 8px 10px;
         }
         .logo-icon {
@@ -230,43 +237,28 @@
         }
         .nav-buttons {
           justify-content: center;
-          overflow-x: auto; 
+          overflow-x: auto;
           padding-bottom: 6px;
         }
         .nav-buttons button {
           font-size: 12px;
           padding: 6px 10px;
-          flex: 0 0 auto; 
+          flex: 0 0 auto;
         }
         .hero-video,
         .hero-image {
-          height: 35vh; 
-        }
-        .fixture-card {
-          flex-direction: column;
-          text-align: center;
-          font-size: 14px;
+          height: 35vh;
         }
         table {
           display: block;
-          overflow-x: auto; 
+          overflow-x: auto;
           font-size: 12px;
         }
       }
 
-      
       @media (max-width: 480px) {
-        .logo {
-          font-size: 14px;
-          gap: 4px;
-          margin-top: -5px;
-        }
-        .logo-icon {
-          width: 50px;
-          height: 50px;
-        }
         .header-title {
-          font-size: 24px; 
+          font-size: 24px;
           top: 35%;
         }
         .nav-buttons button {
@@ -275,35 +267,15 @@
         }
         .hero-video,
         .hero-image {
-          height: 28vh; 
+          height: 28vh;
           font-size: 0.9rem;
-        }
-        .fixture-card {
-          font-size: 12px;
-          padding: 6px;
-        }
-        .team-header {
-          font-size: 11px;
-          padding: 6px;
-        }
-        .search-container input {
-          width: 95%;
-          font-size: 11px;
         }
         footer {
           font-size: 9px;
           padding: 8px;
         }
-        .top-scorer {
-          min-width: 70px;
-          font-size: 11px;
-        }
       }
-      #players-grid table,
-      .top-scorers-row {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch; 
-      }
+
       .logo {
         display: flex;
         align-items: center;
@@ -336,11 +308,6 @@
           drop-shadow(0 0 30px rgba(77, 175, 255, 1));
       }
 
-      .logo-text {
-        background: #065084;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
       footer {
         text-align: center;
         font-size: 12px;
@@ -371,20 +338,24 @@
         </button>
         <button onclick="window.location.href='top-team.html'">Top Team</button>
         <button onclick="window.location.href='index.html'">Dashboard</button>
+      </div>
+      <!-- FIX: closed nav-buttons -->
     </header>
+
     <section class="hero-video">
       <video autoplay muted loop playsinline>
         <source src="LMF new.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </section>
+
     <span id="gwLabel">Loading GW...</span>
 
     <main id="mainContent"></main>
+
     <footer>OFFSIDE LINE</footer>
 
     <script>
-      
       const apiUrl =
         "https://corsproxy.io/?https://fantasy.premierleague.com/api/bootstrap-static/";
       const fixturesUrl =
@@ -397,7 +368,6 @@
         return "var(--accent-red)";
       }
 
-     
       async function loadTopPlayersByPosition() {
         try {
           const [resData, resFixtures] = await Promise.all([
@@ -413,7 +383,6 @@
           const teamMap = {};
           teams.forEach((t) => (teamMap[t.id] = t.name));
 
-         
           const now = new Date();
           const upcomingFixtures = fixtures.filter(
             (f) => !f.finished && f.event && new Date(f.kickoff_time) > now
@@ -426,7 +395,6 @@
             "gwLabel"
           ).textContent = `Current GW: ${currentGW}`;
 
-         
           const playersByPosition = { GK: [], DEF: [], MID: [], FWD: [] };
           elements
             .filter((p) => p.minutes > 0 && p.total_points > 0)
@@ -467,7 +435,6 @@
               });
             });
 
-          
           const mainContent = document.getElementById("mainContent");
           mainContent.innerHTML = "";
 
@@ -506,9 +473,9 @@
                 <td>${p.team}</td>
                 <td>${p.points}</td>
                 <td>
-                  <span class="fdr-badge" style="background:${fdrColor(
-                    p.fdr
-                  )}">${p.opponent} (${p.fdr})</span>
+                  <span class="fdr-badge" style="background:${fdrColor(p.fdr)}">
+                    ${p.opponent} (${p.fdr})
+                  </span>
                 </td>
                 <td>${p.score.toFixed(2)}</td>
               `;
@@ -525,9 +492,8 @@
         }
       }
 
-     
       loadTopPlayersByPosition();
-      setInterval(loadTopPlayersByPosition, 7 * 24 * 60 * 60 * 1000); 
+      setInterval(loadTopPlayersByPosition, 7 * 24 * 60 * 60 * 1000);
     </script>
   </body>
 </html>
