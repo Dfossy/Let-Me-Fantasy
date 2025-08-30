@@ -83,6 +83,44 @@
         pointer-events: none;
       }
 
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--accent-blue);
+        text-shadow: 0 0 8px rgba(77, 175, 255, 0.7);
+        transition: transform 0.3s ease, text-shadow 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.08);
+        text-shadow: 0 0 15px rgba(93, 255, 208, 1),
+          0 0 30px rgba(77, 175, 255, 1);
+      }
+
+      .logo-icon {
+        width: 120px;
+        height: 120px;
+        filter: drop-shadow(0 0 10px rgba(93, 255, 208, 0.8))
+          drop-shadow(0 0 20px rgba(77, 175, 255, 0.6));
+        transition: transform 0.4s ease, filter 0.4s ease;
+      }
+
+      .logo:hover .logo-icon {
+        transform: rotate(-5deg) scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(93, 255, 208, 1))
+          drop-shadow(0 0 30px rgba(77, 175, 255, 1));
+      }
+
+      .logo-text {
+        background: #065084;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
       .nav-buttons {
         display: flex;
         gap: 10px;
@@ -113,10 +151,10 @@
 
       #gwLabel {
         display: block;
-        margin-top: 8px;
-        font-size: 1rem;
+        margin-top: 10px;
+        font-size: 25px;
         font-weight: 400;
-        color: var(--text-muted);
+        color: #210494;
         text-align: center;
       }
 
@@ -274,38 +312,6 @@
           font-size: 9px;
           padding: 8px;
         }
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        font-size: 22px;
-        font-weight: 900;
-        color: var(--accent-blue);
-        text-shadow: 0 0 8px rgba(77, 175, 255, 0.7);
-        transition: transform 0.3s ease, text-shadow 0.3s ease;
-      }
-
-      .logo:hover {
-        transform: scale(1.08);
-        text-shadow: 0 0 15px rgba(93, 255, 208, 1),
-          0 0 30px rgba(77, 175, 255, 1);
-      }
-
-      .logo-icon {
-        width: 100px;
-        height: 100px;
-        filter: drop-shadow(0 0 10px rgba(93, 255, 208, 0.8))
-          drop-shadow(0 0 20px rgba(77, 175, 255, 0.6));
-        transition: transform 0.4s ease, filter 0.4s ease;
-      }
-
-      .logo:hover .logo-icon {
-        transform: rotate(-5deg) scale(1.1);
-        filter: drop-shadow(0 0 15px rgba(93, 255, 208, 1))
-          drop-shadow(0 0 30px rgba(77, 175, 255, 1));
       }
 
       footer {
