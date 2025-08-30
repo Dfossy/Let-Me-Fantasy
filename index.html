@@ -53,25 +53,23 @@
         flex-wrap: wrap;
         gap: 10px;
         transition: all 0.3s ease;
-        height: 125px; 
-        background-image: url("LMF header.jpg"); 
-        background-size: cover; 
-        background-position: bottom; 
+        height: 125px; /* header height */
+        background-image: url("LMF header.jpg");
+        background-size: cover;
+        background-position: bottom;
         background-repeat: no-repeat;
-        position: relative; 
       }
+
       .header-title {
         position: absolute;
         left: 50%;
         top: 35%;
         transform: translate(-50%, -50%);
         color: whitesmoke;
-        font-size: clamp(22px, 6vw, 50px);
+        font-size: 60px;
         font-weight: bold;
-        text-shadow: 5px 0px 0px #ff6fb5;
-        text-align: center;
-        pointer-events: none; 
-        white-space: nowrap;
+        text-shadow: 5px 0 0 #ff6fb5; /* fixed shadow syntax */
+        pointer-events: none;
       }
 
       .logo {
@@ -93,8 +91,8 @@
       }
 
       .logo-icon {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         filter: drop-shadow(0 0 10px rgba(93, 255, 208, 0.8))
           drop-shadow(0 0 20px rgba(77, 175, 255, 0.6));
         transition: transform 0.4s ease, filter 0.4s ease;
@@ -107,7 +105,7 @@
       }
 
       .logo-text {
-        background: #de38e4;
+        background: #065084;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -183,7 +181,7 @@
         text-align: center;
       }
 
-      
+      /* Fixtures */
       #fixtures-grid {
         display: flex;
         flex-direction: column;
@@ -255,10 +253,10 @@
       }
       .controls {
         display: flex;
-        justify-content: center; 
-        align-items: center; 
-        gap: 12px; 
-        margin-bottom: 16px; 
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
       }
       .controls button {
         width: 36px;
@@ -282,7 +280,7 @@
         text-align: center;
       }
 
-      
+      /* Top Scorers */
       #top-scorers-container {
         display: flex;
         flex-direction: column;
@@ -307,7 +305,7 @@
         text-align: center;
         font-weight: bold;
         font-size: 12px;
-        color: Black;
+        color: black;
         transition: transform 0.3s, box-shadow 0.3s;
         background: #56dfcf;
       }
@@ -316,7 +314,7 @@
         box-shadow: 0 6px 18px var(--shadow-dark);
       }
 
-      
+      /* Team Cards */
       .team-card {
         background: #1f2833;
         margin-bottom: 14px;
@@ -375,8 +373,6 @@
         border-collapse: separate;
         border-spacing: 0 8px;
         color: #fff;
-        display: grid;
-        overflow-x: auto;
       }
       th,
       td {
@@ -497,27 +493,30 @@
         font-weight: 600;
         text-shadow: 0 3px 8px #000;
       }
+
       .hero-image {
-        height: 50vh;
+        height: 40vh; /* balanced banner height on desktop */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       }
       .hero-image img {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
         display: block;
         border-bottom: 2px solid var(--accent-blue);
       }
+
       .hero-video {
         height: 60vh;
       }
       .hero-video video {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset: 0; /* top/right/bottom/left: 0 */
         width: 100%;
-        height: 110%;
-        object-fit: cover;
+        height: 100%;
+        object-fit: cover; /* clean, fills without distortion */
         z-index: -1;
+        pointer-events: none;
       }
       .hero-video .overlay-text {
         position: relative;
@@ -525,70 +524,67 @@
         padding: 0 10px;
       }
 
-      
+      /* Grid Layout */
       .content-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
       }
 
-     
+      /* Responsive */
       @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: center;
-    height: auto;
-    padding: 8px 8px;
-  }
+        header {
+          flex-direction: column;
+          align-items: center;
+          height: auto;
+          padding: 8px 10px;
+        }
 
-  .logo-icon {
-    width: 70px;
-    height: 70px;
-  }
+        .logo-icon {
+          width: 80px;
+          height: 80px;
+        }
 
-  .nav-buttons {
-    justify-content: center;
-    overflow-x: auto;
-    padding-bottom: 6px;
-  }
+        .nav-buttons {
+          justify-content: center;
+          overflow-x: auto;
+          padding-bottom: 6px;
+        }
 
-  .nav-buttons button {
-    font-size: 12px;
-    padding: 6px 10px;
-    flex: 0 0 auto;
-  }
+        .nav-buttons button {
+          font-size: 12px;
+          padding: 6px 10px;
+          flex: 0 0 auto;
+        }
 
-  .hero-video,
-  .hero-image {
-    height: 35vh;
-  }
+        .hero-video,
+        .hero-image {
+          height: 60vh;
+        }
 
-  .fixture-card {
-    flex-direction: column;
-    text-align: center;
-    font-size: 14px;
-  }
+        .fixture-card {
+          flex-direction: column;
+          text-align: center;
+          font-size: 14px;
+        }
 
-  table {
-    display: block;
-    overflow-x: auto;
-    font-size: 12px;
-  }
+        table {
+          display: block;
+          overflow-x: auto;
+          font-size: 12px;
+        }
 
-  
-  .content-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px;
-  }
+        .content-grid {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 20px;
+        }
 
-  .content-grid > .card {
-    width: 95% !important;
-  }
-}
+        .content-grid > .card {
+          width: 95% !important;
+        }
+      }
 
-
-      
       @media (max-width: 480px) {
         .logo {
           font-size: 14px;
@@ -596,11 +592,11 @@
           margin-top: -5px;
         }
         .logo-icon {
-          width: 50px;
-          height: 50px;
+          width: 70px;
+          height: 70px;
         }
         .header-title {
-          font-size: 24px; 
+          font-size: 32px;
           top: 35%;
         }
         .nav-buttons button {
@@ -609,7 +605,7 @@
         }
         .hero-video,
         .hero-image {
-          height: 28vh; 
+          height: 28vh;
           font-size: 0.9rem;
         }
         .fixture-card {
@@ -632,11 +628,18 @@
           min-width: 70px;
           font-size: 11px;
         }
+        .content-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .content-grid > .card {
+          width: 100%;
+        }
       }
+
+      /* Smooth horizontal scrolling on iOS */
       #players-grid table,
       .top-scorers-row {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch; 
+        -webkit-overflow-scrolling: touch;
       }
     </style>
   </head>
@@ -661,6 +664,8 @@
         <source src="LMF new.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      <!-- Optional overlay text -->
+      <!-- <div class="overlay-text">Let Me Fantasy</div> -->
     </section>
 
     <main>
@@ -673,7 +678,7 @@
             <button onclick="changeWeek(1)">▶</button>
           </div>
           <div id="fixtures-grid">
-            If you seeing this message please click the logo in the top left
+            If you are seeing this message please click the logo in the top left
             corner.
           </div>
         </div>
@@ -701,22 +706,20 @@
 
       async function loadData() {
         try {
-          
+          // Load bootstrap + fixtures
           bootstrap = await fetch(API_BASE + "/bootstrap-static/").then((r) =>
             r.json()
           );
-
           fixtures = await fetch(API_BASE + "/fixtures/").then((r) => r.json());
 
-          
+          // Find current gameweek from bootstrap.events
           const currentEvent = bootstrap.events.find((e) => e.is_current);
-          if (currentEvent) {
-            week = currentEvent.id;
-          }
+          if (currentEvent) week = currentEvent.id;
 
           renderFixtures();
           renderTopScorers();
         } catch (e) {
+          console.error(e);
           alert("Error loading data. Check API or CORS proxy.");
         }
       }
@@ -728,11 +731,8 @@
             fetch(API_BASE + "/fixtures/").then((r) => r.json()),
           ]);
 
-          
           const currentEvent = bootstrap.events.find((e) => e.is_current);
-          if (currentEvent) {
-            week = currentEvent.id;
-          }
+          if (currentEvent) week = currentEvent.id;
 
           renderFixtures();
           renderTopScorers();
@@ -741,19 +741,22 @@
           notice.classList.add("show");
           setTimeout(() => notice.classList.remove("show"), 2000);
         } catch (e) {
+          console.error(e);
           alert("Error updating data. Check API or CORS proxy.");
         }
       }
 
       function renderFixtures() {
-        document.getElementById("week-label").innerText = "Game Week " + week;
+        document.getElementById("week-label").innerText = "GW " + week; // keep label consistent
         const container = document.getElementById("fixtures-grid");
         container.innerHTML = "";
+
         const weekFixtures = fixtures.filter((f) => f.event === week);
         if (!weekFixtures.length) {
           container.innerHTML = "<em>No fixtures scheduled this week.</em>";
           return;
         }
+
         const fixturesByDay = {};
         weekFixtures.forEach((f) => {
           const day = f.kickoff_time
@@ -766,15 +769,19 @@
           if (!fixturesByDay[day]) fixturesByDay[day] = [];
           fixturesByDay[day].push(f);
         });
+
         Object.keys(fixturesByDay).forEach((day) => {
           const dayDiv = document.createElement("div");
           dayDiv.className = "day-group";
+
           const dayHeader = document.createElement("div");
           dayHeader.className = "day-group-header";
           dayHeader.innerHTML = `${day} <span class="arrow">▶</span>`;
           dayDiv.appendChild(dayHeader);
+
           const dayContent = document.createElement("div");
           dayContent.className = "day-group-content";
+
           fixturesByDay[day].forEach((f) => {
             const div = document.createElement("div");
             div.className = "fixture-card";
@@ -791,14 +798,16 @@
               : `<strong>${home} vs ${away}</strong><br><small>${kickoff}</small>`;
             dayContent.appendChild(div);
           });
+
           dayDiv.appendChild(dayContent);
           container.appendChild(dayDiv);
+
           dayHeader.addEventListener("click", () => {
             const isOpen = dayContent.classList.contains("show");
             document.querySelectorAll(".day-group-content").forEach((c) => {
               c.classList.remove("show");
-              c.previousElementSibling.querySelector(".arrow").style.transform =
-                "rotate(0deg)";
+              const arrow = c.previousElementSibling.querySelector(".arrow");
+              if (arrow) arrow.style.transform = "rotate(0deg)";
             });
             if (!isOpen) {
               dayContent.classList.add("show");
@@ -851,85 +860,9 @@
             container.appendChild(row);
           });
         } catch (e) {
+          console.error(e);
           container.innerHTML = "Top performers unavailable for this gameweek.";
         }
-      }
-
-      function renderPlayers() {
-        const container = document.getElementById("players-grid");
-        container.innerHTML = "";
-
-        bootstrap.teams
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .forEach((team) => {
-            const teamCard = document.createElement("div");
-            teamCard.className = "team-card";
-
-            const header = document.createElement("div");
-            header.className = "team-header";
-            header.innerHTML = `${team.name} <span class="arrow">▶</span>`;
-            teamCard.appendChild(header);
-
-            const list = document.createElement("div");
-            list.className = "player-list";
-            teamCard.appendChild(list);
-
-            header.addEventListener("click", () => {
-              const isOpen = list.classList.contains("show");
-              document
-                .querySelectorAll(".team-card .player-list")
-                .forEach((pl) => {
-                  pl.classList.remove("show");
-                  pl.previousElementSibling.querySelector(
-                    ".arrow"
-                  ).style.transform = "rotate(0deg)";
-                });
-
-              if (!isOpen) {
-                list.classList.add("show");
-                header.querySelector(".arrow").style.transform =
-                  "rotate(90deg)";
-                
-                if (!list.innerHTML) {
-                  const teamPlayers = bootstrap.elements
-                    .filter((p) => p.team === team.id)
-                    .sort((a, b) => b.total_points - a.total_points);
-
-                  const table = document.createElement("table");
-                  table.innerHTML = `<thead>
-              <tr>
-                <th>Name</th><th>Pos</th><th>Pts</th><th>Cost</th>
-                <th>%Sel</th><th>Min</th><th>Form</th><th>G</th><th>A</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${teamPlayers
-                .map(
-                  (p) => `
-                <tr class="player">
-                  <td>${p.web_name}</td>
-                  <td>${posName(p.element_type)}</td>
-                  <td>${p.total_points}</td>
-                  <td>£${(p.now_cost / 10).toFixed(1)}m</td>
-                  <td>${p.selected_by_percent}%</td>
-                  <td>${p.minutes}</td>
-                  <td>${parseFloat(p.form).toFixed(2)}</td>
-                  <td>${p.goals_scored}</td>
-                  <td>${p.assists}</td>
-                </tr>`
-                )
-                .join("")}
-            </tbody>`;
-                  list.appendChild(table);
-                }
-              } else {
-                list.classList.remove("show");
-                header.querySelector(".arrow").style.transform = "rotate(0deg)";
-              }
-            });
-
-            container.appendChild(teamCard);
-          });
       }
 
       function changeWeek(dir) {
@@ -940,6 +873,7 @@
         renderFixtures();
         renderTopScorers();
       }
+
       function teamName(id) {
         const t = bootstrap.teams.find((x) => x.id === id);
         return t ? t.name : "Unknown";
@@ -949,14 +883,13 @@
         return { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" }[id] || "UNK";
       }
 
-     
       async function init() {
         console.log("Loading data...");
         try {
           await loadData();
           console.log("Data loaded successfully:", { bootstrap, fixtures });
         } catch (err) {
-          console.error("❌ Failed to load data:", err);
+          console.error("Failed to load data:", err);
           const container = document.getElementById("fixtures-grid");
           if (container) {
             container.innerHTML =
@@ -967,7 +900,7 @@
 
       init();
 
-     
+      // Refresh every 60 seconds
       setInterval(() => {
         console.log("Refreshing data...");
         refreshData();
