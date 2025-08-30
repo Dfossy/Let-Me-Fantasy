@@ -31,14 +31,6 @@
 
       header {
         padding: 5px 20px;
-        background: linear-gradient(
-          to right,
-          #4169e1,
-          #8a2be2,
-          #ff6fb5,
-          #8a2be2,
-          #4169e1
-        );
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -50,23 +42,23 @@
         flex-wrap: wrap;
         gap: 10px;
         transition: all 0.3s ease;
-        height: 125px; /* adjust height */
-        background-image: url("LMF header.jpg"); /* path to your image */
-        background-size: cover; /* makes image cover the whole area */
-        background-position: bottom; /* keeps image centered */
+        height: 125px;
+        background-image: url("LMF header.jpg");
+        background-size: cover;
+        background-position: bottom;
         background-repeat: no-repeat;
-        position: relative; /* allow absolute positioning inside */
       }
+
       .header-title {
         position: absolute;
         left: 50%;
-        top: 30%;
+        top: 35%;
         transform: translate(-50%, -50%);
         color: whitesmoke;
-        font-size: 50px;
+        font-size: 60px;
         font-weight: bold;
-        text-shadow: 5px 00px 0px #ff6fb5;
-        pointer-events: none; /* clicks go through to logo/nav */
+        text-shadow: 5px 0 0 #ff6fb5; /* fixed shadow syntax */
+        pointer-events: none;
       }
 
       .logo {
@@ -101,12 +93,6 @@
           drop-shadow(0 0 30px rgba(77, 175, 255, 1));
       }
 
-      .logo-text {
-        background: #065084;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
       .nav-buttons {
         display: flex;
         gap: 10px;
@@ -135,21 +121,7 @@
         color: #000;
       }
 
-      .search-container {
-        display: flex;
-        justify-content: center;
-        margin: 15px 0;
-      }
-
-      .search-container input {
-        width: 60%;
-        max-width: 400px;
-        padding: 8px 12px;
-        border-radius: 50px;
-        border: none;
-        font-size: 14px;
-      }
-
+      .team-select-container,
       .filter-container {
         display: flex;
         justify-content: center;
@@ -203,28 +175,16 @@
         border-radius: 8px;
       }
 
-      .team-stats {
-        font-size: 13px;
-        margin: 8px 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .player-list {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease;
-      }
-      .player-list.show {
-        max-height: 10000px;
+      .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       table {
         width: 100%;
+        min-width: 600px;
         border-collapse: collapse;
         color: #fff;
-        min-width: 600px; 
       }
 
       th,
@@ -232,13 +192,16 @@
         padding: 6px 10px;
         text-align: center;
         font-size: 12px;
-        white-space: nowrap; 
+        white-space: nowrap;
       }
 
       th {
         font-weight: bold;
         background: rgba(77, 175, 255, 0.3);
         border-radius: 6px;
+        position: sticky;
+        top: 0;
+        z-index: 2;
       }
 
       tr.player:nth-child(even) {
@@ -246,33 +209,6 @@
       }
       tr.player:hover {
         background: rgba(77, 175, 255, 0.2);
-      }
-
-      
-      .table-container {
-        width: 100%;
-        overflow-x: auto; 
-        -webkit-overflow-scrolling: touch; 
-        margin-top: 10px;
-      }
-
-      /* Mobile tweaks */
-      @media (max-width: 768px) {
-        th,
-        td {
-          font-size: 11px;
-          padding: 5px 8px;
-        }
-      }
-      @media (max-width: 480px) {
-        th,
-        td {
-          font-size: 10px;
-          padding: 4px 6px;
-        }
-        table {
-          min-width: 500px; 
-        }
       }
 
       footer {
@@ -290,40 +226,16 @@
         font-size: 12px;
       }
 
-      @media (max-width: 768px) {
-        .search-container input {
-          width: 90%;
-        }
-        .team-stats {
-          flex-direction: column;
-        }
-      }
-      
-      .hero-image,
+      /* Hero */
       .hero-video {
         width: 100%;
+        height: 55vh;
         overflow: hidden;
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        color: white;
-        font-weight: 600;
-        text-shadow: 0 3px 8px #000;
-      }
-      .hero-image {
-        height: 30vh;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      }
-      .hero-image img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-bottom: 2px solid var(--accent-blue);
-      }
-      .hero-video {
-        height: 55vh;
       }
       .hero-video video {
         position: absolute;
@@ -334,51 +246,67 @@
         object-fit: cover;
         z-index: -1;
       }
-      .hero-video .overlay-text {
+
+      .select-wrapper {
         position: relative;
-        z-index: 1;
-        padding: 0 10px;
+        width: 60%;
+        max-width: 400px;
+        margin: 20px auto;
       }
 
-      
-      .content-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
+      #team-select {
+        width: 100%;
+        padding: 14px 40px 14px 20px;
+        font-size: 18px;
+        border-radius: 30px;
+        border: 2px solid var(--accent-blue);
+        background-color: var(--card-bg);
+        color: var(--text-light);
+        outline: none;
+        cursor: pointer;
+        box-shadow: 0 6px 15px var(--shadow-dark);
+        transition: all 0.3s ease;
+        appearance: none;
       }
 
-     
+      /* Hover & focus effects */
+      #team-select:hover,
+      #team-select:focus {
+        border-color: var(--accent-green);
+        box-shadow: 0 8px 20px rgba(93, 255, 208, 0.5);
+      }
+
+      /* Custom arrow */
+      .select-wrapper::after {
+        content: "▼";
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: var(--accent-blue);
+        font-size: 14px;
+      }
+
+      /* Mobile adjustments */
       @media (max-width: 768px) {
-        header {
-          flex-direction: column;
-          align-items: center;
-          height: auto; 
-          padding: 10px;
-        }
-
-        .header-title {
-          font-size: 28px;
-          top: 60%; 
-        }
-
-        .logo-icon {
-          width: 70px;
-          height: 70px;
-        }
-
-        .nav-buttons {
-          justify-content: center;
-          flex-wrap: nowrap;
-          overflow-x: auto;
-          width: 100%;
-          padding: 5px 0;
-          gap: 8px;
+        #team-select {
+          font-size: 16px;
+          padding: 12px 36px 12px 16px;
         }
       }
+
+      @media (max-width: 480px) {
+        #team-select {
+          font-size: 14px;
+          padding: 10px 32px 10px 14px;
+        }
+      }
+
       @media (max-width: 480px) {
         .header-title {
           font-size: 20px;
-          top: 45%; /* move up title */
+          top: 45%;
           text-shadow: 2px 2px 0px #ff6fb5;
         }
 
@@ -397,13 +325,12 @@
           padding: 5px 10px;
         }
 
-        .hero-video,
-        .hero-image {
-          height: 25vh; /* smaller hero */
+        .hero-video {
+          height: 25vh;
         }
 
         table {
-          min-width: 450px; /* smaller for phones */
+          min-width: 450px;
         }
 
         th,
@@ -416,79 +343,6 @@
           font-size: 10px;
           padding: 8px;
         }
-      }
-
-      .table-container {
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        margin-top: 10px;
-      }
-
-      table {
-        min-width: 600px;
-        border-collapse: collapse;
-        color: #fff;
-      }
-
-      th,
-      td {
-        padding: 6px 10px;
-        text-align: center;
-        white-space: nowrap;
-        font-size: 12px;
-      }
-
-      @media (max-width: 480px) {
-        th,
-        td {
-          font-size: 10px;
-          padding: 4px 6px;
-        }
-        table {
-          min-width: 500px;
-        }
-      }
-      .table-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .table-wrapper table {
-        min-width: 800px;
-        border-collapse: collapse;
-      }
-
-      .table-wrapper thead th {
-        position: sticky;
-        top: 0;
-        background: #111;
-        z-index: 2;
-      }
-      .team-select-container {
-        display: flex;
-        justify-content: center;
-        margin: 20px 0;
-      }
-
-      #team-select {
-        width: 60%;
-        max-width: 400px;
-        padding: 12px 16px;
-        font-size: 16px;
-        border-radius: 12px;
-        border: 2px solid var(--accent-blue);
-        background-color: var(--card-bg);
-        color: var(--text-light);
-        outline: none;
-        cursor: pointer;
-        box-shadow: 0 4px 10px var(--shadow-dark);
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-
-      #team-select:hover {
-        transform: scale(1.02);
-        box-shadow: 0 6px 15px var(--shadow-dark);
       }
     </style>
   </head>
@@ -505,6 +359,7 @@
         <button onclick="window.location.href='index.html'">Dashboard</button>
       </div>
     </header>
+
     <section class="hero-video">
       <video autoplay muted loop playsinline>
         <source src="LMF new.mp4" type="video/mp4" />
@@ -513,9 +368,11 @@
     </section>
 
     <div class="team-select-container">
-      <select id="team-select">
-        <option value="">Select a team...</option>
-      </select>
+      <div class="select-wrapper">
+        <select id="team-select">
+          <option value="">Select a team...</option>
+        </select>
+      </div>
     </div>
 
     <div class="filter-container">
@@ -524,7 +381,7 @@
       <button data-sort="assists">Sort by Assists</button>
     </div>
 
-    <main id="teams-container">Select a team for more info...</main>
+    <main id="teams-container">Loading data...</main>
 
     <footer>OFFSIDE LINE</footer>
 
@@ -545,7 +402,6 @@
           return;
         }
 
-        // populate team dropdown
         const teamSelect = document.getElementById("team-select");
         bootstrapData.teams
           .sort((a, b) => a.name.localeCompare(b.name))
@@ -556,24 +412,20 @@
             teamSelect.appendChild(opt);
           });
 
-        // change listener (when a team is chosen, show it)
-        teamSelect.addEventListener("change", () => {
-          const teamId = teamSelect.value;
-          renderTeam(teamId);
-        });
+        teamSelect.addEventListener("change", () =>
+          renderTeam(teamSelect.value)
+        );
       }
 
       function renderTeam(teamId) {
         const container = document.getElementById("teams-container");
         container.innerHTML = "";
-        if (!teamId) return; // show nothing if no team selected
+        if (!teamId) return;
 
         let team = bootstrapData.teams.find((t) => t.id == teamId);
         let teamPlayers = bootstrapData.elements.filter(
           (p) => p.team == team.id
         );
-
-        // sort players
         teamPlayers.sort((a, b) => b[currentSort] - a[currentSort]);
 
         const card = document.createElement("div");
@@ -584,39 +436,38 @@
         header.textContent = `${team.name} (${teamPlayers.length} players)`;
         card.appendChild(header);
 
-        const table = document.createElement("table");
-        table.innerHTML = `<thead>
-    <tr>
-      <th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
-      <th>%Sel</th><th>Minutes</th><th>Form</th><th>Goals</th><th>Assists</th><th>CS</th>
-    </tr>
-  </thead>
-  <tbody>
-    ${teamPlayers
-      .map(
-        (p) => `
-        <tr class="player">
-          <td>${p.web_name}</td>
-          <td>${posName(p.element_type)}</td>
-          <td>${p.total_points}</td>
-          <td>£${(p.now_cost / 10).toFixed(1)}m</td>
-          <td>${p.selected_by_percent}%</td>
-          <td>${p.minutes}</td>
-          <td>${parseFloat(p.form).toFixed(2)}</td>
-          <td>${p.goals_scored}</td>
-          <td>${p.assists}</td>
-          <td>${p.clean_sheets}</td>
-        </tr>`
-      )
-      .join("")}
-  </tbody>`;
-
-        // ✅ Wrap table in scrollable div
         const wrapper = document.createElement("div");
         wrapper.className = "table-wrapper";
+
+        const table = document.createElement("table");
+        table.innerHTML = `<thead>
+          <tr>
+            <th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
+            <th>%Sel</th><th>Minutes</th><th>Form</th><th>Goals</th><th>Assists</th><th>CS</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${teamPlayers
+            .map(
+              (p) => `
+            <tr class="player">
+              <td>${p.web_name}</td>
+              <td>${posName(p.element_type)}</td>
+              <td>${p.total_points}</td>
+              <td>£${(p.now_cost / 10).toFixed(1)}m</td>
+              <td>${p.selected_by_percent}</td>
+              <td>${p.minutes}</td>
+              <td>${parseFloat(p.form).toFixed(2)}</td>
+              <td>${p.goals_scored}</td>
+              <td>${p.assists}</td>
+              <td>${p.clean_sheets}</td>
+            </tr>`
+            )
+            .join("")}
+        </tbody>`;
+
         wrapper.appendChild(table);
         card.appendChild(wrapper);
-
         container.appendChild(card);
       }
 
@@ -624,12 +475,10 @@
         return { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" }[id] || "UNK";
       }
 
-      // Sorting buttons
       document.querySelectorAll(".filter-container button").forEach((btn) => {
         btn.addEventListener("click", () => {
           currentSort = btn.dataset.sort;
-          const teamId = document.getElementById("team-select").value;
-          renderTeam(teamId);
+          renderTeam(document.getElementById("team-select").value);
         });
       });
 
