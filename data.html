@@ -17,14 +17,7 @@
       body {
         margin: 0;
         font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(
-          to right,
-          #4169e1,
-          #8a2be2,
-          #ff6fb5,
-          #8a2be2,
-          #4169e1
-        );
+        background: linear-gradient(to right, #212121, #303f9f, #212121);
         color: var(--text-light);
         scroll-behavior: smooth;
       }
@@ -49,18 +42,14 @@
         background-repeat: no-repeat;
       }
 
-      .header-title {
-        position: absolute;
-        left: 50%;
-        top: 35%;
-        transform: translate(-50%, -50%);
-        color: whitesmoke;
+      .section-heading {
+        text-align: center;
         font-size: 60px;
         font-weight: bold;
-        text-shadow: 5px 0 0 #ff6fb5; /* fixed shadow syntax */
-        pointer-events: none;
+        margin: 30px 0 10px;
+        color: #ffffff;
+        text-shadow: 5px 0 0 #212121;
       }
-
       .logo {
         display: flex;
         align-items: center;
@@ -111,7 +100,7 @@
         padding: 6px 14px;
         border-radius: 8px;
         border: 3px solid black;
-        background: #065084;
+        background: #210494;
         color: #ffffff;
         font-weight: bold;
         cursor: pointer;
@@ -140,14 +129,17 @@
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        background: var(--accent-blue);
-        color: #000;
+        background: #210494;
+        color: #ffffff;
         font-weight: bold;
         transition: transform 0.2s;
       }
 
       .filter-container button:hover {
         transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(77, 175, 255, 0.7);
+        background: #ffffff;
+        color: #000;
       }
 
       main {
@@ -170,14 +162,7 @@
         align-items: center;
         cursor: pointer;
         padding: 6px;
-        background: linear-gradient(
-          to right,
-          #4169e1,
-          #8a2be2,
-          #ff6fb5,
-          #8a2be2,
-          #4169e1
-        );
+        background: linear-gradient(to right, #212121, #303f9f);
         border-radius: 8px;
       }
 
@@ -220,14 +205,7 @@
       footer {
         text-align: center;
         padding: 15px;
-        background: linear-gradient(
-          to right,
-          #4169e1,
-          #8a2be2,
-          #ff6fb5,
-          #8a2be2,
-          #4169e1
-        );
+        background: linear-gradient(to right, #212121, #303f9f, #212121);
         border-top: 1px solid var(--accent-blue);
         font-size: 12px;
       }
@@ -428,7 +406,7 @@
       <h1 class="logo" onclick="refreshData()">
         <img class="logo-icon" src="LMF Gold.png" alt="Let Me Fantasy Logo" />
       </h1>
-      <h2 class="header-title">Player stats</h2>
+
       <div class="nav-buttons">
         <button onclick="window.location.href='fixture.html'">Fixtures</button>
         <button onclick="window.location.href='FDR.html'">FDR</button>
@@ -443,6 +421,7 @@
         Your browser does not support the video tag.
       </video>
     </section>
+    <h2 class="section-heading">Player stats</h2>
 
     <div class="team-select-container">
       <div class="select-wrapper">
@@ -458,7 +437,7 @@
       <button data-sort="assists">Sort by Assists</button>
     </div>
 
-    <main id="teams-container">Select a team to see details....</main>
+    <main id="teams-container">Loading data...</main>
 
     <footer>OFFSIDE LINE</footer>
 
