@@ -19,14 +19,7 @@
       body {
         margin: 0;
         font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(
-          to right,
-          #4169e1,
-          #8a2be2,
-          #ff6fb5,
-          #8a2be2,
-          #4169e1
-        );
+        background: linear-gradient(to right, #212121, #303f9f, #212121);
         color: var(--text-light);
       }
 
@@ -48,16 +41,13 @@
         gap: 10px;
       }
 
-      .header-title {
-        position: absolute;
-        left: 50%;
-        top: 35%;
-        transform: translate(-50%, -50%);
-        color: whitesmoke;
+      .section-heading {
+        text-align: center;
         font-size: 60px;
         font-weight: bold;
-        text-shadow: 5px 0 0 #ff6fb5; /* fixed shadow syntax */
-        pointer-events: none;
+        margin: 30px 0 10px;
+        color: #ffffff;
+        text-shadow: 5px 0 0 #212121;
       }
 
       .logo {
@@ -110,7 +100,7 @@
         padding: 6px 14px;
         border-radius: 8px;
         border: 3px solid black;
-        background: #065084;
+        background: #210494;
         color: #ffffff;
         font-weight: bold;
         cursor: pointer;
@@ -149,7 +139,7 @@
         margin-top: 0;
         margin-bottom: 12px;
         font-size: 1.4rem;
-        color: var(--accent-blue);
+        color: #ffffff;
       }
 
       .formation-buttons {
@@ -163,16 +153,18 @@
         padding: 10px;
         border: none;
         border-radius: 8px;
-        background: linear-gradient(to right, #fc00ff, #00dbde);
-        color: var(--player-text);
+        background: #303f9f;
+        color: #ffffff;
         font-weight: bold;
         cursor: pointer;
         transition: all 0.3s ease;
       }
 
       .formation-buttons button:hover {
-        background: linear-gradient(to left, #fc00ff, #00dbde);
         transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(77, 175, 255, 0.7);
+        background: #ffffff;
+        color: #000;
       }
 
       /* Pitch Styling */
@@ -373,6 +365,14 @@
       .top-scorers-row {
         -webkit-overflow-scrolling: touch;
       }
+      footer {
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+        padding: 15px;
+        background: linear-gradient(to right, #212121, #303f9f, #212121);
+        border-top: 1px solid var(--accent-blue);
+      }
     </style>
   </head>
   <body>
@@ -380,7 +380,7 @@
       <h1 class="logo" onclick="refreshData()">
         <img class="logo-icon" src="LMF Gold.png" alt="Let Me Fantasy Logo" />
       </h1>
-      <h2 class="header-title">Top 11</h2>
+
       <div class="nav-buttons">
         <button onclick="window.location.href='fixture.html'">Fixtures</button>
         <button onclick="window.location.href='FDR.html'">FDR</button>
@@ -397,6 +397,7 @@
         Your browser does not support the video tag.
       </video>
     </section>
+    <h2 class="section-heading">Top 11</h2>
 
     <main>
       <div class="card">
@@ -419,6 +420,7 @@
         </div>
       </div>
     </main>
+    <footer>OFFSIDE LINE</footer>
 
     <script>
       const API_BASE =
