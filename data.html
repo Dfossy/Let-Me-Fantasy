@@ -133,6 +133,7 @@
         color: #ffffff;
         font-weight: bold;
         transition: transform 0.2s;
+        border: 3px solid black;
       }
 
       .filter-container button:hover {
@@ -435,8 +436,9 @@
       <button data-sort="total_points">Sort by Points</button>
       <button data-sort="goals_scored">Sort by Goals</button>
       <button data-sort="assists">Sort by Assists</button>
+      <button data-sort="minutes">Sort by Minutes</button>
+      <button data-sort="saves">Sort by Saves</button>
     </div>
-
     <main id="teams-container">Loading data...</main>
 
     <footer>OFFSIDE LINE</footer>
@@ -497,30 +499,39 @@
 
         const table = document.createElement("table");
         table.innerHTML = `<thead>
-          <tr>
-            <th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
-            <th>%Sel</th><th>Minutes</th><th>Form</th><th>Goals</th><th>Assists</th><th>CS</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${teamPlayers
-            .map(
-              (p) => `
-            <tr class="player">
-              <td>${p.web_name}</td>
-              <td>${posName(p.element_type)}</td>
-              <td>${p.total_points}</td>
-              <td>£${(p.now_cost / 10).toFixed(1)}m</td>
-              <td>${p.selected_by_percent}</td>
-              <td>${p.minutes}</td>
-              <td>${parseFloat(p.form).toFixed(2)}</td>
-              <td>${p.goals_scored}</td>
-              <td>${p.assists}</td>
-              <td>${p.clean_sheets}</td>
-            </tr>`
-            )
-            .join("")}
-        </tbody>`;
+  <tr>
+    <th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
+    <th>%Sel</th><th>Minutes</th><th>Form</th>
+    <th>Goals</th><th>Assists</th><th>CS</th>
+    <th>GC</th><th>Saves</th><th>OG</th><th>Pen Saved</th>
+    <th>YC</th><th>RC</th>
+  </tr>
+</thead>
+<tbody>
+  ${teamPlayers
+    .map(
+      (p) => `
+      <tr class="player">
+        <td>${p.web_name}</td>
+        <td>${posName(p.element_type)}</td>
+        <td>${p.total_points}</td>
+        <td>£${(p.now_cost / 10).toFixed(1)}m</td>
+        <td>${p.selected_by_percent}</td>
+        <td>${p.minutes}</td>
+        <td>${parseFloat(p.form).toFixed(2)}</td>
+        <td>${p.goals_scored}</td>
+        <td>${p.assists}</td>
+        <td>${p.clean_sheets}</td>
+        <td>${p.goals_conceded}</td>
+        <td>${p.saves}</td>
+        <td>${p.own_goals}</td>
+        <td>${p.penalties_saved}</td>
+        <td>${p.yellow_cards}</td>
+        <td>${p.red_cards}</td>
+      </tr>`
+    )
+    .join("")}
+</tbody>`;
 
         wrapper.appendChild(table);
         card.appendChild(wrapper);
