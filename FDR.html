@@ -28,14 +28,7 @@
 
       body {
         font-family: "Inter", sans-serif;
-        background: linear-gradient(
-          to right,
-          #4169e1,
-          #8a2be2,
-          #ff6fb5,
-          #8a2be2,
-          #4169e1
-        );
+        background: linear-gradient(to right, #212121, #303f9f, #212121);
         color: var(--text-light);
         margin: 0;
         padding: 0;
@@ -71,16 +64,13 @@
         position: relative;
       }
 
-      .header-title {
-        position: absolute;
-        left: 50%;
-        top: 35%;
-        transform: translate(-50%, -50%);
-        color: whitesmoke;
+      .section-heading {
+        text-align: center;
         font-size: 60px;
         font-weight: bold;
-        text-shadow: 5px 0 0 #ff6fb5; /* fixed shadow syntax */
-        pointer-events: none;
+        margin: 30px 0 10px;
+        color: #ffffff;
+        text-shadow: 5px 0 0 #212121;
       }
 
       .logo {
@@ -133,7 +123,7 @@
         padding: 6px 14px;
         border-radius: 8px;
         border: 3px solid black;
-        background: #065084;
+        background: #210494;
         color: #ffffff;
         font-weight: bold;
         cursor: pointer;
@@ -154,7 +144,7 @@
         margin-top: 10px;
         font-size: 25px;
         font-weight: 400;
-        color: #210494;
+        color: #ffffff;
         text-align: center;
       }
 
@@ -212,7 +202,7 @@
         margin-bottom: 15px;
         font-weight: 600;
         font-size: 1.4rem;
-        border-bottom: 2px solid var(--bg-hover);
+        border-bottom: none;
         padding-bottom: 5px;
       }
 
@@ -377,14 +367,7 @@
         font-size: 12px;
         color: #fff;
         padding: 15px;
-        background: linear-gradient(
-          to right,
-          #4169e1,
-          #8a2be2,
-          #ff6fb5,
-          #8a2be2,
-          #4169e1
-        );
+        background: linear-gradient(to right, #212121, #303f9f, #212121);
         border-top: 1px solid var(--accent-blue);
       }
     </style>
@@ -394,7 +377,7 @@
       <h1 class="logo" onclick="refreshData()">
         <img class="logo-icon" src="LMF Gold.png" alt="Let Me Fantasy Logo" />
       </h1>
-      <h2 class="header-title">FDR</h2>
+
       <div class="nav-buttons">
         <button onclick="window.location.href='fixture.html'">Fixtures</button>
         <button onclick="window.location.href='data.html'">
@@ -412,6 +395,7 @@
         Your browser does not support the video tag.
       </video>
     </section>
+    <h2 class="section-heading">FDR</h2>
 
     <span id="gwLabel">Loading GW...</span>
 
