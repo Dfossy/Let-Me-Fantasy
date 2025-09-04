@@ -14,10 +14,12 @@
         --card-bg: #1f2937;
         --text-light: #e5e7eb;
         --accent: #3b82f6;
-        --accent-blue: #4dafff; /* ✅ Added */
-        --easy: #22c55e;
-        --medium: #facc15;
-        --hard: #ef4444;
+        --accent-blue: #4dafff;
+        --very-easy: #83faaf; /* green-lighter */
+        --easy: #0a7431; /* green */
+        --medium: #facc15; /* yellow */
+        --hard: #f97316; /* orange/red */
+        --very-hard: #ef4444; /* red */
       }
 
       body {
@@ -192,6 +194,10 @@
         transform: scale(1.05);
       }
 
+      .very-easy {
+        background: var(--very-easy);
+        color: #111;
+      }
       .easy {
         background: var(--easy);
         color: #111;
@@ -202,6 +208,10 @@
       }
       .hard {
         background: var(--hard);
+        color: #111;
+      }
+      .very-hard {
+        background: var(--very-hard);
         color: #111;
       }
 
@@ -384,6 +394,22 @@
         background: linear-gradient(to right, #212121, #210494, #212121);
         border-top: 1px solid var(--accent-blue);
       }
+      .legend {
+        margin: 0.5rem 0 1.5rem;
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+        flex-wrap: wrap; /
+      }
+
+      .legend-item {
+        padding: 0.35rem 0.7rem;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+      }
     </style>
   </head>
   <body>
@@ -409,6 +435,13 @@
       </video>
     </section>
     <h2 class="section-heading">Fixtures</h2>
+    <div class="legend">
+      <span class="legend-item very-easy">1 – Very Easy</span>
+      <span class="legend-item easy">2 – Easy</span>
+      <span class="legend-item medium">3 – Medium</span>
+      <span class="legend-item hard">4 – Hard</span>
+      <span class="legend-item very-hard">5 – Very Hard</span>
+    </div>
 
     <main>
       <div id="loading" class="loading">Loading data...</div>
@@ -416,6 +449,9 @@
         <table id="heatmap"></table>
       </div>
     </main>
+    <section class="hero-image">
+      <img src="LMF Stars.png" alt="Fantasy Banner" />
+    </section>
 
     <footer>OFFSIDE LINE</footer>
 
@@ -430,9 +466,21 @@
       }
 
       function getDifficultyClass(diff) {
-        if (diff <= 2) return "easy";
-        if (diff === 3) return "medium";
-        return "hard";
+        // FPL API gives 1–5, so map directly
+        switch (diff) {
+          case 1:
+            return "very-easy";
+          case 2:
+            return "easy";
+          case 3:
+            return "medium";
+          case 4:
+            return "hard";
+          case 5:
+            return "very-hard";
+          default:
+            return ""; // unknown difficulty
+        }
       }
 
       async function buildHeatmap() {
