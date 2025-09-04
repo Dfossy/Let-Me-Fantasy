@@ -51,6 +51,7 @@
         color: #ffffff;
         text-shadow: 5px 0 0 #212121;
       }
+
       .logo {
         display: flex;
         align-items: center;
@@ -81,12 +82,6 @@
         transform: rotate(-5deg) scale(1.1);
         filter: drop-shadow(0 0 15px rgba(93, 255, 208, 1))
           drop-shadow(0 0 30px rgba(77, 175, 255, 1));
-      }
-
-      .logo-text {
-        background: #065084;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
       }
 
       .nav-buttons {
@@ -124,10 +119,11 @@
         margin: 10px 0;
         gap: 10px;
       }
+
       .filter-container {
         display: flex;
         justify-content: center;
-        flex-wrap: wrap; /* allow wrapping if buttons are too many */
+        flex-wrap: wrap;
         gap: 10px;
         padding: 5px;
       }
@@ -169,7 +165,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        cursor: pointer;
         padding: 6px;
         background: linear-gradient(to right, #212121, #303f9f);
         border-radius: 8px;
@@ -182,7 +177,7 @@
 
       table {
         width: 100%;
-        min-width: 600px;
+        min-width: 850px;
         border-collapse: collapse;
         color: #fff;
       }
@@ -211,6 +206,15 @@
         background: rgba(77, 175, 255, 0.2);
       }
 
+      .fav-star {
+        cursor: pointer;
+        color: #888;
+      }
+      .fav-star.active {
+        color: gold;
+        text-shadow: 0 0 4px #000;
+      }
+
       footer {
         text-align: center;
         padding: 15px;
@@ -219,7 +223,6 @@
         font-size: 12px;
       }
 
-      /* Hero */
       .hero-video {
         width: 100%;
         height: 55vh;
@@ -230,6 +233,7 @@
         align-items: center;
         text-align: center;
       }
+
       .hero-video video {
         position: absolute;
         top: 0;
@@ -262,14 +266,12 @@
         appearance: none;
       }
 
-      /* Hover & focus effects */
       #team-select:hover,
       #team-select:focus {
         border-color: var(--accent-green);
         box-shadow: 0 8px 20px rgba(93, 255, 208, 0.5);
       }
 
-      /* Custom arrow */
       .select-wrapper::after {
         content: "▼";
         position: absolute;
@@ -280,139 +282,11 @@
         color: var(--accent-blue);
         font-size: 14px;
       }
-
-      /* Mobile adjustments */
-      @media (max-width: 768px) {
-        header {
-          flex-direction: column;
-          align-items: center;
-          height: auto;
-          padding: 8px 10px;
-        }
-
-        .logo-icon {
-          width: 80px;
-          height: 80px;
-        }
-
-        .nav-buttons {
-          justify-content: center;
-          overflow-x: auto;
-          padding-bottom: 6px;
-        }
-
-        .nav-buttons button {
-          font-size: 12px;
-          padding: 6px 10px;
-          flex: 0 0 auto;
-        }
-
-        .hero-video,
-        .hero-image {
-          height: 60vh;
-        }
-
-        .fixture-card {
-          flex-direction: column;
-          text-align: center;
-          font-size: 14px;
-        }
-
-        table {
-          display: block;
-          overflow-x: auto;
-          font-size: 12px;
-        }
-
-        .content-grid {
-          display: flex !important;
-          flex-direction: column !important;
-          gap: 20px;
-        }
-
-        .content-grid > .card {
-          width: 95% !important;
-        }
-      }
-
-      @media (max-width: 480px) {
-        #team-select {
-          font-size: 14px;
-          padding: 10px 32px 10px 14px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .logo {
-          font-size: 14px;
-          gap: 4px;
-          margin-top: -5px;
-        }
-        .logo-icon {
-          width: 70px;
-          height: 70px;
-        }
-        .header-title {
-          font-size: 32px;
-          top: 35%;
-        }
-        .nav-buttons button {
-          font-size: 11px;
-          padding: 5px 8px;
-        }
-        .hero-video,
-        .hero-image {
-          height: 28vh;
-          font-size: 0.9rem;
-        }
-        .fixture-card {
-          font-size: 12px;
-          padding: 6px;
-        }
-        .team-header {
-          font-size: 11px;
-          padding: 6px;
-        }
-        .search-container input {
-          width: 95%;
-          font-size: 11px;
-        }
-        footer {
-          font-size: 9px;
-          padding: 8px;
-        }
-        .top-scorer {
-          min-width: 70px;
-          font-size: 11px;
-        }
-        .content-grid {
-          grid-template-columns: 1fr !important;
-        }
-        .content-grid > .card {
-          width: 100%;
-        }
-      }
-
-      /* Smooth horizontal scrolling on iOS */
-      #players-grid table,
-      .top-scorers-row {
-        -webkit-overflow-scrolling: touch;
-      }
-      th,
-      td {
-        font-size: 10px;
-        padding: 4px;
-      }
-
-      footer {
-        font-size: 10px;
-        padding: 8px;
-      }
     </style>
   </head>
   <body>
     <header>
-      <h1 class="logo" onclick="refreshData()">
+      <h1 class="logo" onclick="location.reload()">
         <img class="logo-icon" src="LMF Gold.png" alt="Let Me Fantasy Logo" />
       </h1>
 
@@ -427,9 +301,9 @@
     <section class="hero-video">
       <video autoplay muted loop playsinline>
         <source src="LMF Football.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
     </section>
+
     <h2 class="section-heading">Player stats</h2>
 
     <div class="team-select-container">
@@ -446,7 +320,9 @@
       <button data-sort="assists">Sort by Assists</button>
       <button data-sort="minutes">Sort by Minutes</button>
       <button data-sort="saves">Sort by Saves</button>
+      <button id="show-favs">Show Favourites</button>
     </div>
+
     <main id="teams-container">Loading data...</main>
 
     <footer>OFFSIDE LINE</footer>
@@ -456,6 +332,9 @@
         "https://corsproxy.io/?https://fantasy.premierleague.com/api";
       let bootstrapData;
       let currentSort = "total_points";
+      const favKey = "fplFavs";
+      let favourites = JSON.parse(localStorage.getItem(favKey) || "[]");
+      let showOnlyFavs = false;
 
       async function loadData() {
         try {
@@ -486,75 +365,123 @@
       function renderTeam(teamId) {
         const container = document.getElementById("teams-container");
         container.innerHTML = "";
-        if (!teamId) return;
 
-        let team = bootstrapData.teams.find((t) => t.id == teamId);
-        let teamPlayers = bootstrapData.elements.filter(
-          (p) => p.team == team.id
+        let teamPlayers = [];
+        let teamsToRender = [];
+
+        if (teamId) {
+          let team = bootstrapData.teams.find((t) => t.id == teamId);
+          teamsToRender = [team];
+          teamPlayers = bootstrapData.elements.filter((p) => p.team == team.id);
+        } else if (showOnlyFavs) {
+          teamsToRender = bootstrapData.teams;
+          teamPlayers = bootstrapData.elements.filter((p) =>
+            favourites.includes(p.id)
+          );
+        } else {
+          container.innerHTML =
+            "Please select a team or click 'Show Favourites'.";
+          return;
+        }
+
+        teamsToRender.forEach((team) => {
+          let players = teamPlayers;
+          if (!teamId) players = teamPlayers.filter((p) => p.team == team.id);
+          if (players.length === 0) return;
+
+          players.sort((a, b) => b[currentSort] - a[currentSort]);
+
+          const card = document.createElement("div");
+          card.className = "team-card";
+
+          const header = document.createElement("div");
+          header.className = "team-header";
+          header.textContent = `${team.name} (${players.length} players)`;
+          card.appendChild(header);
+
+          const wrapper = document.createElement("div");
+          wrapper.className = "table-wrapper";
+
+          const table = document.createElement("table");
+          table.innerHTML = `<thead>
+            <tr>
+              <th>Fav</th><th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
+              <th>%Sel</th><th>Minutes</th><th>Form</th>
+              <th>Goals</th><th>Assists</th><th>CS</th>
+              <th>GC</th><th>Saves</th><th>OG</th><th>Pen Saved</th>
+              <th>YC</th><th>RC</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${players
+              .map((p) => {
+                const active = favourites.includes(p.id) ? "active" : "";
+                return `
+              <tr class="player" data-id="${p.id}">
+                <td><span class="fav-star ${active}">★</span></td>
+                <td>${p.web_name}</td>
+                <td>${posName(p.element_type)}</td>
+                <td>${p.total_points}</td>
+                <td>£${(p.now_cost / 10).toFixed(1)}m</td>
+                <td>${p.selected_by_percent}</td>
+                <td>${p.minutes}</td>
+                <td>${parseFloat(p.form).toFixed(2)}</td>
+                <td>${p.goals_scored}</td>
+                <td>${p.assists}</td>
+                <td>${p.clean_sheets}</td>
+                <td>${p.goals_conceded}</td>
+                <td>${p.saves}</td>
+                <td>${p.own_goals}</td>
+                <td>${p.penalties_saved}</td>
+                <td>${p.yellow_cards}</td>
+                <td>${p.red_cards}</td>
+              </tr>`;
+              })
+              .join("")}
+          </tbody>`;
+
+          wrapper.appendChild(table);
+          card.appendChild(wrapper);
+          container.appendChild(card);
+        });
+
+        container.querySelectorAll(".fav-star").forEach((el) =>
+          el.addEventListener("click", () => {
+            const row = el.closest("tr");
+            const pid = Number(row.dataset.id);
+            if (favourites.includes(pid)) {
+              favourites.splice(favourites.indexOf(pid), 1);
+              el.classList.remove("active");
+            } else {
+              favourites.push(pid);
+              el.classList.add("active");
+            }
+            localStorage.setItem(favKey, JSON.stringify(favourites));
+          })
         );
-        teamPlayers.sort((a, b) => b[currentSort] - a[currentSort]);
-
-        const card = document.createElement("div");
-        card.className = "team-card";
-
-        const header = document.createElement("div");
-        header.className = "team-header";
-        header.textContent = `${team.name} (${teamPlayers.length} players)`;
-        card.appendChild(header);
-
-        const wrapper = document.createElement("div");
-        wrapper.className = "table-wrapper";
-
-        const table = document.createElement("table");
-        table.innerHTML = `<thead>
-  <tr>
-    <th>Name</th><th>Pos</th><th>Points</th><th>Cost</th>
-    <th>%Sel</th><th>Minutes</th><th>Form</th>
-    <th>Goals</th><th>Assists</th><th>CS</th>
-    <th>GC</th><th>Saves</th><th>OG</th><th>Pen Saved</th>
-    <th>YC</th><th>RC</th>
-  </tr>
-</thead>
-<tbody>
-  ${teamPlayers
-    .map(
-      (p) => `
-      <tr class="player">
-        <td>${p.web_name}</td>
-        <td>${posName(p.element_type)}</td>
-        <td>${p.total_points}</td>
-        <td>£${(p.now_cost / 10).toFixed(1)}m</td>
-        <td>${p.selected_by_percent}</td>
-        <td>${p.minutes}</td>
-        <td>${parseFloat(p.form).toFixed(2)}</td>
-        <td>${p.goals_scored}</td>
-        <td>${p.assists}</td>
-        <td>${p.clean_sheets}</td>
-        <td>${p.goals_conceded}</td>
-        <td>${p.saves}</td>
-        <td>${p.own_goals}</td>
-        <td>${p.penalties_saved}</td>
-        <td>${p.yellow_cards}</td>
-        <td>${p.red_cards}</td>
-      </tr>`
-    )
-    .join("")}
-</tbody>`;
-
-        wrapper.appendChild(table);
-        card.appendChild(wrapper);
-        container.appendChild(card);
       }
 
       function posName(id) {
         return { 1: "GK", 2: "DEF", 3: "MID", 4: "FWD" }[id] || "UNK";
       }
 
-      document.querySelectorAll(".filter-container button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          currentSort = btn.dataset.sort;
-          renderTeam(document.getElementById("team-select").value);
+      document
+        .querySelectorAll(".filter-container button[data-sort]")
+        .forEach((btn) => {
+          btn.addEventListener("click", () => {
+            currentSort = btn.dataset.sort;
+            renderTeam(document.getElementById("team-select").value);
+          });
         });
+
+      document.getElementById("show-favs").addEventListener("click", () => {
+        showOnlyFavs = !showOnlyFavs;
+        document
+          .getElementById("team-select")
+          .dispatchEvent(new Event("change"));
+        document.getElementById("show-favs").textContent = showOnlyFavs
+          ? "Show All"
+          : "Show Favourites";
       });
 
       loadData();
